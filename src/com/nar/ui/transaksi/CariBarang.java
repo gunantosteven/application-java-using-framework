@@ -110,6 +110,11 @@ public class CariBarang extends javax.swing.JDialog {
                 formWindowOpened(evt);
             }
         });
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         lblCariBarang.setText("Cari Barang");
 
@@ -191,8 +196,13 @@ public class CariBarang extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        refreshTable();
+        
     }//GEN-LAST:event_formWindowOpened
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+        refreshTable();
+    }//GEN-LAST:event_formComponentShown
 
     /**
      * @param args the command line arguments

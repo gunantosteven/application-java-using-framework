@@ -77,11 +77,11 @@ public class FormDetailPenjualan extends javax.swing.JDialog {
         Employee employee = null;
         if(penjualan.getEmployee().getNik().startsWith("opt"))
         {
-            employee = (Operator) Main.getEmployeeService().getEmployee(penjualan.getEmployee().getNik());
+            employee = (Employee) Main.getEmployeeService().getEmployee(penjualan.getEmployee().getNik());
         }   
         else if(penjualan.getEmployee().getNik().startsWith("spv"))
         {
-            employee = (Supervisor) Main.getEmployeeService().getEmployee(penjualan.getEmployee().getNik());
+            employee = (Employee) Main.getEmployeeService().getEmployee(penjualan.getEmployee().getNik());
         }
         detailPenjualan.setBarang(Main.getBarangService().getBarang(txtKodeBarang.getText()));
         detailPenjualan.setNoNota(penjualan.getNoNota());
