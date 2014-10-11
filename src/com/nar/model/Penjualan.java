@@ -24,7 +24,7 @@ import org.hibernate.annotations.Cascade;
 public class Penjualan 
 {
     @Id
-    private int noNota;
+    private String noFaktur;
     
     @ManyToOne
     @JoinColumn(name="CUSTOMER_PENJUALAN")
@@ -41,23 +41,9 @@ public class Penjualan
     @Column(name="TOTAL_BAYAR")
     private int totalBayar;
     
-    @Column(name="BAYAR")
-    private int bayar;
-    
-    @Column(name="KEMBALI")
-    private int kembali;
-    
     @Temporal(TemporalType.DATE)
     @Column(name="TANGGAL_PENJUALAN", nullable=false)
     private Date tanggalPenjualan;
-
-    public int getBayar() {
-        return bayar;
-    }
-
-    public int getKembali() {
-        return kembali;
-    }
 
     public Customer getCustomer() {
         return customer;
@@ -75,20 +61,12 @@ public class Penjualan
         return tanggalPenjualan;
     }
 
-    public int getNoNota() {
-        return noNota;
+    public String getNoFaktur() {
+        return noFaktur;
     }
 
     public int getTotalBayar() {
         return totalBayar;
-    }
-
-    public void setBayar(int bayar) {
-        this.bayar = bayar;
-    }
-
-    public void setKembali(int kembali) {
-        this.kembali = kembali;
     }
 
     public void setCustomer(Customer customer) {
@@ -103,15 +81,15 @@ public class Penjualan
         this.listDetailPenjualan = listDetailPenjualan;
     }
 
-    public void setNoNota(int noNota) {
-        this.noNota = noNota;
-    }
-
     public void setTanggalPenjualan(Date tanggalPenjualan) {
         this.tanggalPenjualan = tanggalPenjualan;
     }
 
     public void setTotalBayar(int totalBayar) {
         this.totalBayar = totalBayar;
+    }
+
+    public void setNoFaktur(String noFaktur) {
+        this.noFaktur = noFaktur;
     }
 }

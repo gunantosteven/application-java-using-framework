@@ -7,6 +7,8 @@ package com.nar.service.impl;
 
 import com.nar.dao.BarangDao;
 import com.nar.model.Barang;
+import com.nar.model.DetailPembelian;
+import com.nar.model.DetailPenjualan;
 import com.nar.service.BarangService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +48,17 @@ public class BarangServiceImpl implements BarangService
     public List<Barang> getBarangs(int start, int num)
     {
         return barangDao.getAll(start, num);
+    }
+
+    @Transactional(readOnly=false)
+    @Override
+    public void kurangStock(List<DetailPenjualan> listDetailPenjualan) {
+        barangDao.kurangStock(listDetailPenjualan);
+    }
+
+    @Transactional(readOnly=false)
+    @Override
+    public void tambahStock(List<DetailPembelian> listDetailPembelian) {
+        barangDao.tambahStock(listDetailPembelian);
     }
 }

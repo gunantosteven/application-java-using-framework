@@ -6,24 +6,24 @@
 package com.nar.util;
 
 
-import com.nar.model.Admin;
 import com.nar.model.Barang;
 import com.nar.model.Customer;
 import com.nar.model.DetailPenjualan;
 import com.nar.model.Employee;
 import com.nar.model.Jabatan;
 import com.nar.model.JenisKelamin;
-import com.nar.model.Marketing;
-import com.nar.model.Nota;
-import com.nar.model.Operator;
+import com.nar.model.JurnalUmum;
+import com.nar.model.MasterAkun;
 import com.nar.model.Penjualan;
-import com.nar.model.Supervisor;
+import com.nar.model.Supplier;
 import com.nar.service.BarangService;
 import com.nar.service.CustomerService;
 import com.nar.service.DetailPenjualanService;
 import com.nar.service.EmployeeService;
-import com.nar.service.NotaService;
+import com.nar.service.JurnalUmumService;
+import com.nar.service.MasterAkunService;
 import com.nar.service.PenjualanService;
+import com.nar.service.SupplierService;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -56,20 +56,27 @@ public class GenerateTables
           (EmployeeService) appContext.getBean("employeeService");
         CustomerService customerService =
          (CustomerService) appContext.getBean("customerService");
+        SupplierService supplierService =
+          (SupplierService) appContext.getBean("supplierService");
         DetailPenjualanService detailPenjualanService = 
           (DetailPenjualanService) appContext.getBean("detailPenjualanService");
         PenjualanService penjualanService = 
            (PenjualanService) appContext.getBean("penjualanService");
-        NotaService notaService = 
-          (NotaService) appContext.getBean("notaService");
+        MasterAkunService masterAkunService =
+          (MasterAkunService) appContext.getBean("masterAkunService");
+        JurnalUmumService jurnalUmumService = 
+          (JurnalUmumService) appContext.getBean("jurnalUmumService");
         
-//        Barang b = new Barang();
-//        b.setBarang("brng0001");
-//        b.setNamaBarang("Baygon");
-//        b.setDeskripsi("Pembasmi nyamuk");
-//        b.setHargaJual(10000);
-//        b.setSatuan("pcs");
-//        b.setStock(100);
+        Barang b = new Barang();
+        b.setKodeBarang("brng0001");
+        b.setNamaBarang("Besi");
+        b.setDeskripsi("Besi ukuran xl");
+        b.setHargaBeli(900000);
+        b.setHargaJual(1000000);
+        b.setSatuan("pcs");
+        b.setStock(0);
+        
+        barangService.save(b);
 //        
 //        Barang b2 = new Barang();
 //        b2.setBarang("brng0002");
@@ -80,24 +87,90 @@ public class GenerateTables
 //        b2.setStock(100);
 //        
 ////        
-            Employee e = new Employee();
-            e.setNik("spv0001");
-            e.setNama("Steven Gunanto");
-            e.setBirthDate(new Date());
-            e.setAlamat("Kalijudan");
-            e.setJenisKelamin(JenisKelamin.PRIA);
-            e.setTempatLahir("Surabaya");
-            e.setUserName("steven");
-            e.setPassword("gunanto");
-            e.setJabatan(Jabatan.SUPERVISOR);
-            
-            employeeService.save(e);
+        Employee e = new Employee();
+        e.setNik("spv0001");
+        e.setNama("Steven Gunanto");
+        e.setBirthDate(new Date());
+        e.setAlamat("Kalijudan");
+        e.setJenisKelamin(JenisKelamin.PRIA);
+        e.setTempatLahir("Surabaya");
+        e.setUserName("steven");
+        e.setPassword("gunanto");
+        e.setJabatan(Jabatan.SUPERVISOR);
+
+        employeeService.save(e);
 //        
-//        Customer c = new Customer();
-//        c.setNip("cst0001");
-//        c.setNama("Johan Prasetio");
-//        c.setAlamat("Tambak Bayan");
-//        c.setNoTelp("12345678910");
+        Customer c = new Customer();
+        c.setNip("cst0001");
+        c.setNama("Johan Prasetio");
+        c.setAlamat("Tambak Bayan");
+        c.setNoTelp("12345678910");
+        
+        customerService.save(c);
+        
+        Supplier s = new Supplier();
+        s.setKodeSupplier("s001");
+        s.setNamaSupplier("Jonathan");
+        s.setNoTelepon("031-3333333");
+        s.setAlamat("embong malang");
+        
+        supplierService.save(s);
+        
+        MasterAkun masterAkunKas = new MasterAkun();
+        masterAkunKas.setKodeAkun("101");
+        masterAkunKas.setNamaAkun("Kas");
+        
+        masterAkunService.save(masterAkunKas);
+        
+        MasterAkun masterAkunPiutangDagang = new MasterAkun();
+        masterAkunPiutangDagang.setKodeAkun("103");
+        masterAkunPiutangDagang.setNamaAkun("Piutang Dagang");
+        
+        masterAkunService.save(masterAkunPiutangDagang);
+        
+        MasterAkun masterAkunHutangDagang = new MasterAkun();
+        masterAkunHutangDagang.setKodeAkun("201");
+        masterAkunHutangDagang.setNamaAkun("Hutang Dagang");
+        
+        masterAkunService.save(masterAkunHutangDagang);
+        
+        MasterAkun masterAkunPembelian = new MasterAkun();
+        masterAkunPembelian.setKodeAkun("500");
+        masterAkunPembelian.setNamaAkun("Pembelian");
+        
+        masterAkunService.save(masterAkunPembelian);
+        
+        MasterAkun masterAkunPenjualan = new MasterAkun();
+        masterAkunPenjualan.setKodeAkun("400");
+        masterAkunPenjualan.setNamaAkun("Penjualan");
+        
+        masterAkunService.save(masterAkunPenjualan);
+        
+        MasterAkun masterAkunBebanSewaGedung = new MasterAkun();
+        masterAkunBebanSewaGedung.setKodeAkun("602");
+        masterAkunBebanSewaGedung.setNamaAkun("Beban Sewa Gedung");
+        
+        masterAkunService.save(masterAkunBebanSewaGedung);
+        
+//        JurnalUmum jurnalUmumPembelian = new JurnalUmum();
+//        jurnalUmumPembelian.setDk("D");
+//        jurnalUmumPembelian.setEmployee(e);
+//        jurnalUmumPembelian.setFaktur("1");
+//        jurnalUmumPembelian.setMasterAkun(masterAkunPembelian);
+//        jurnalUmumPembelian.setSaldo(100000);
+//        jurnalUmumPembelian.setTanggal(new Date());
+//        
+//        jurnalUmumService.save(jurnalUmumPembelian);
+//        
+//        JurnalUmum jurnalUmumKas = new JurnalUmum();
+//        jurnalUmumKas.setDk("K");
+//        jurnalUmumKas.setEmployee(e);
+//        jurnalUmumKas.setFaktur("1");
+//        jurnalUmumKas.setMasterAkun(masterAkunKas);
+//        jurnalUmumKas.setSaldo(100000);
+//        jurnalUmumKas.setTanggal(new Date());
+//        
+//        jurnalUmumService.save(jurnalUmumKas);
 //        
 //        Marketing m = new Marketing();
 //        m.setNik("mkt0001");

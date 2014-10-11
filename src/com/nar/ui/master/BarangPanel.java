@@ -40,6 +40,7 @@ public class BarangPanel extends javax.swing.JInternalFrame {
         barang.setNamaBarang(txtNamaBarang.getText());
         barang.setDeskripsi(txtDeskripsi.getText());
         barang.setSatuan(txtSatuan.getText());
+        barang.setHargaBeli(Integer.parseInt(txtHargaBeli.getText()));
         barang.setHargaJual(Integer.parseInt(txtHargaJual.getText()));
         barang.setStock(Integer.parseInt(txtJumlahBarang.getText()));
     }
@@ -50,6 +51,7 @@ public class BarangPanel extends javax.swing.JInternalFrame {
         txtNamaBarang.setText(barang.getNamaBarang());
         txtDeskripsi.setText(barang.getDeskripsi());
         txtSatuan.setText(barang.getSatuan());
+        txtHargaBeli.setText(String.valueOf(barang.getHargaBeli()));
         txtHargaJual.setText(String.valueOf(barang.getHargaJual()));
         txtJumlahBarang.setText(String.valueOf(barang.getStock()));
     }
@@ -95,6 +97,8 @@ public class BarangPanel extends javax.swing.JInternalFrame {
                 case 4:
                     return b.getStock();
                 case 5:
+                    return b.getHargaBeli();
+                case 6:
                     return b.getHargaJual();
                 default:
                     return "";
@@ -130,6 +134,7 @@ public class BarangPanel extends javax.swing.JInternalFrame {
         if(txtKodeBarang.getText().length() > 0
         && txtNamaBarang.getText().length() > 0
         && txtDeskripsi.getText().length() > 0
+        && txtHargaBeli.getText().length() > 0
         && txtHargaJual.getText().length() > 0 
         && txtJumlahBarang.getText().length() > 0
         && txtSatuan.getText().length() > 0)
@@ -148,6 +153,7 @@ public class BarangPanel extends javax.swing.JInternalFrame {
         refreshTable();
         txtCariBerdasarkan.setText("");
         txtDeskripsi.setText("");
+        txtHargaBeli.setText("");
         txtHargaJual.setText("");
         txtJumlahBarang.setText("");
         txtKodeBarang.setText("");
@@ -189,6 +195,8 @@ public class BarangPanel extends javax.swing.JInternalFrame {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtHargaBeli = new javax.swing.JTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -208,15 +216,23 @@ public class BarangPanel extends javax.swing.JInternalFrame {
 
         tableBarang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Kode Barang", "Nama Barang", "Deskripsi", "Satuan", "Jumlah Barang", "Harga Jual"
+                "Kode Barang", "Nama Barang", "Deskripsi", "Satuan", "Jumlah Barang", "Harga Beli", "Harga Jual"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tableBarang);
 
         lblCariBerdasarkan.setText("Cari Berdasarkan ");
@@ -259,6 +275,8 @@ public class BarangPanel extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setText("Harga Beli :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -267,24 +285,6 @@ public class BarangPanel extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 894, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblDeskripsi)
-                            .addComponent(lblNamaBarang)
-                            .addComponent(lblSatuan)
-                            .addComponent(lblJumlahBarang)
-                            .addComponent(jLabel6)
-                            .addComponent(lblKodeBarang))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtNamaBarang)
-                                .addComponent(txtDeskripsi, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtSatuan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                                .addComponent(txtJumlahBarang, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtHargaJual, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblCariBerdasarkan)
                         .addGap(4, 4, 4)
@@ -298,8 +298,28 @@ public class BarangPanel extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDelete)
                         .addGap(18, 18, 18)
-                        .addComponent(btnClear)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(btnClear))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblDeskripsi)
+                            .addComponent(lblNamaBarang)
+                            .addComponent(lblSatuan)
+                            .addComponent(lblJumlahBarang)
+                            .addComponent(lblKodeBarang)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNamaBarang)
+                                .addComponent(txtDeskripsi, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtJumlahBarang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                                .addComponent(txtSatuan, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtHargaJual, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtHargaBeli, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,11 +344,15 @@ public class BarangPanel extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblJumlahBarang)
                     .addComponent(txtJumlahBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtHargaJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(jLabel1)
+                    .addComponent(txtHargaBeli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtHargaJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCariBerdasarkan)
                     .addComponent(txtCariBerdasarkan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -434,6 +458,7 @@ public class BarangPanel extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSimpan;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox cmbCariBerdasarkan;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCariBerdasarkan;
@@ -445,6 +470,7 @@ public class BarangPanel extends javax.swing.JInternalFrame {
     private javax.swing.JTable tableBarang;
     private javax.swing.JTextField txtCariBerdasarkan;
     private javax.swing.JTextField txtDeskripsi;
+    private javax.swing.JTextField txtHargaBeli;
     private javax.swing.JTextField txtHargaJual;
     private javax.swing.JTextField txtJumlahBarang;
     private javax.swing.JTextField txtKodeBarang;

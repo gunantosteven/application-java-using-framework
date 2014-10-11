@@ -2,12 +2,19 @@ package com.nar.ui;
 
 
 import com.nar.Main;
+import com.nar.model.Employee;
 import com.nar.report.DailyPenjualanReport;
 import com.nar.ui.master.BarangPanel;
 import com.nar.ui.master.CustomerPanel;
 import com.nar.ui.master.EmployeePanel;
-import com.nar.ui.master.NotaPanel;
+import com.nar.ui.master.MasterAkunPanel;
+import com.nar.ui.master.SupplierPanel;
 import com.nar.ui.reports.DailyPenjualanReportPanel;
+import com.nar.ui.reports.ReportCustomer;
+import com.nar.ui.reports.ReportEmployee;
+import com.nar.ui.transaksi.FormBiaya;
+import com.nar.ui.transaksi.FormJurnalUmum;
+import com.nar.ui.transaksi.FormPembelian;
 import com.nar.ui.transaksi.FormPenjualan;
 import java.beans.PropertyVetoException;
 import javax.swing.JFrame;
@@ -27,7 +34,7 @@ import org.apache.log4j.Logger;
 public class MenuUtama extends javax.swing.JFrame {
 
     private static final Logger log = Logger.getLogger(MenuUtama.class);
-    private String user;
+    private static Employee employee;
     /**
      * Creates new form MenuUtama
      */
@@ -35,9 +42,13 @@ public class MenuUtama extends javax.swing.JFrame {
     {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.user = user;
+        employee = (Employee) Main.getEmployeeService().getEmployee(user);
         checkUser();
         main();
+    }
+
+    public static Employee getEmployee() {
+        return employee;
     }
     
     public void main()
@@ -52,39 +63,35 @@ public class MenuUtama extends javax.swing.JFrame {
     
     private void checkUser()
     {
-        if(user.startsWith("mkt"))
+        if(employee.getNik().startsWith("mkt"))
         {
             mnuItemBarang.setEnabled(false);
             mnuItemKaryawan.setEnabled(false);
             mnuItemCustomer.setEnabled(true);
-            mnuItemNota.setEnabled(false);
             mnuItemPenjualan.setEnabled(false);
             mnuItemPenjualanHarian.setEnabled(false);
         }
-        else if(user.startsWith("opt"))
+        else if(employee.getNik().startsWith("opt"))
         {
             mnuItemBarang.setEnabled(false);
             mnuItemKaryawan.setEnabled(false);
             mnuItemCustomer.setEnabled(false);
-            mnuItemNota.setEnabled(false);
             mnuItemPenjualan.setEnabled(true);
             mnuItemPenjualanHarian.setEnabled(true);
         }
-        else if(user.startsWith("adm"))
+        else if(employee.getNik().startsWith("adm"))
         {
             mnuItemBarang.setEnabled(false);
             mnuItemKaryawan.setEnabled(false);
             mnuItemCustomer.setEnabled(false);
-            mnuItemNota.setEnabled(true);
             mnuItemPenjualan.setEnabled(false);
             mnuItemPenjualanHarian.setEnabled(false);
         }
-        else if(user.startsWith("spv"))
+        else if(employee.getNik().startsWith("spv"))
         {
             mnuItemBarang.setEnabled(true);
             mnuItemKaryawan.setEnabled(true);
             mnuItemCustomer.setEnabled(true);
-            mnuItemNota.setEnabled(true);
             mnuItemPenjualan.setEnabled(true);
             mnuItemPenjualanHarian.setEnabled(true);
         }
@@ -108,13 +115,16 @@ public class MenuUtama extends javax.swing.JFrame {
         mnuItemBarang = new javax.swing.JMenuItem();
         mnuItemKaryawan = new javax.swing.JMenuItem();
         mnuItemCustomer = new javax.swing.JMenuItem();
-        mnuItemNota = new javax.swing.JMenuItem();
+        mnuItemSupplier = new javax.swing.JMenuItem();
+        mnuItemMasterAkun = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        mnuItemPembelian = new javax.swing.JMenuItem();
         mnuItemPenjualan = new javax.swing.JMenuItem();
+        mnuItemBiaya = new javax.swing.JMenuItem();
+        mnuItemJurnalUmum = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         mnuCustomerReport = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         mnuItemPenjualanHarian = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         mnuItemLogOut = new javax.swing.JMenuItem();
@@ -187,17 +197,33 @@ public class MenuUtama extends javax.swing.JFrame {
         });
         jMenu3.add(mnuItemCustomer);
 
-        mnuItemNota.setText("Nota");
-        mnuItemNota.addActionListener(new java.awt.event.ActionListener() {
+        mnuItemSupplier.setText("Supplier");
+        mnuItemSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuItemNotaActionPerformed(evt);
+                mnuItemSupplierActionPerformed(evt);
             }
         });
-        jMenu3.add(mnuItemNota);
+        jMenu3.add(mnuItemSupplier);
+
+        mnuItemMasterAkun.setText("Master Akun");
+        mnuItemMasterAkun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemMasterAkunActionPerformed(evt);
+            }
+        });
+        jMenu3.add(mnuItemMasterAkun);
 
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Transaksi");
+
+        mnuItemPembelian.setText("Pembelian");
+        mnuItemPembelian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemPembelianActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mnuItemPembelian);
 
         mnuItemPenjualan.setText("Penjualan");
         mnuItemPenjualan.addActionListener(new java.awt.event.ActionListener() {
@@ -206,6 +232,22 @@ public class MenuUtama extends javax.swing.JFrame {
             }
         });
         jMenu4.add(mnuItemPenjualan);
+
+        mnuItemBiaya.setText("Biaya");
+        mnuItemBiaya.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemBiayaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mnuItemBiaya);
+
+        mnuItemJurnalUmum.setText("Jurnal Umum");
+        mnuItemJurnalUmum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemJurnalUmumActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mnuItemJurnalUmum);
 
         jMenuBar1.add(jMenu4);
 
@@ -226,14 +268,6 @@ public class MenuUtama extends javax.swing.JFrame {
             }
         });
         jMenu5.add(mnuCustomerReport);
-
-        jMenuItem2.setText("Nota");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem2);
 
         mnuItemPenjualanHarian.setText("Penjualan Harian");
         mnuItemPenjualanHarian.addActionListener(new java.awt.event.ActionListener() {
@@ -329,10 +363,6 @@ public class MenuUtama extends javax.swing.JFrame {
         {
             mnuItemCustomer.doClick();
         }
-        else if(node.equals("Nota"))
-        {
-            mnuItemNota.doClick();
-        }
         else if(node.equals("Penjualan"))
         {
             mnuItemPenjualan.doClick();
@@ -394,7 +424,7 @@ public class MenuUtama extends javax.swing.JFrame {
         {
             if(formPenjualan == null)
             {
-                formPenjualan = new FormPenjualan(user);
+                formPenjualan = new FormPenjualan();
                 jDesktopPane1.add(formPenjualan);
             }
             else
@@ -426,7 +456,7 @@ public class MenuUtama extends javax.swing.JFrame {
         }
         catch(PropertyVetoException ex)
         {
-            log.error("error ketika menampilkan Form Penjualan");
+            log.error("error ketika menampilkan Daily Penjualan Report Panel");
         }
         
     }//GEN-LAST:event_mnuItemPenjualanHarianActionPerformed
@@ -441,42 +471,152 @@ public class MenuUtama extends javax.swing.JFrame {
         new Login().setVisible(true);
         dispose();
     }//GEN-LAST:event_mnuItemLogOutActionPerformed
-    public NotaPanel notaPanel;
-    private void mnuItemNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemNotaActionPerformed
+
+    public ReportCustomer reportCustomer;
+    private void mnuCustomerReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCustomerReportActionPerformed
         // TODO add your handling code here:
         try
         {
-            if(notaPanel == null)
+            if(reportCustomer == null)
             {
-                notaPanel = new NotaPanel(user);
-                jDesktopPane1.add(notaPanel);
+                reportCustomer = new ReportCustomer();
+                jDesktopPane1.add(reportCustomer);
             }
             else
-                notaPanel.toFront();
-            notaPanel.setVisible(true);
-            notaPanel.setSelected(true);
-            notaPanel.setSize(jDesktopPane1.getSize());
+                reportCustomer.toFront();
+            reportCustomer.setVisible(true);
+            reportCustomer.setSelected(true);
+            reportCustomer.setSize(jDesktopPane1.getSize());
         }
         catch(PropertyVetoException ex)
         {
-            log.error("error ketika menampilkan Form Penjualan");
+            log.error("error ketika menampilkan Report Customer");
         }
-    }//GEN-LAST:event_mnuItemNotaActionPerformed
-
-    private void mnuCustomerReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCustomerReportActionPerformed
-        // TODO add your handling code here:
-        JasperViewer.viewReport(Main.getReportService().getCustomerReport(),false);
     }//GEN-LAST:event_mnuCustomerReportActionPerformed
-
+    
+    public ReportEmployee reportEmployee;
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        JasperViewer.viewReport(Main.getReportService().getEmployeeReport(),false);
+        try
+        {
+            if(reportEmployee == null)
+            {
+                reportEmployee = new ReportEmployee();
+                jDesktopPane1.add(reportEmployee);
+            }
+            else
+                reportEmployee.toFront();
+            reportEmployee.setVisible(true);
+            reportEmployee.setSelected(true);
+            reportEmployee.setSize(jDesktopPane1.getSize());
+        }
+        catch(PropertyVetoException ex)
+        {
+            log.error("error ketika menampilkan Report Employee");
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    public SupplierPanel supplierPanel;
+    private void mnuItemSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemSupplierActionPerformed
         // TODO add your handling code here:
-        JasperViewer.viewReport(Main.getReportService().getNotaReport(),false);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        try
+        {
+            if(supplierPanel == null)
+            {
+                supplierPanel = new SupplierPanel();
+                jDesktopPane1.add(supplierPanel);
+            }
+            else
+                supplierPanel.toFront();
+            supplierPanel.setVisible(true);
+            supplierPanel.setSelected(true);
+            supplierPanel.setSize(jDesktopPane1.getSize());
+        }
+        catch(PropertyVetoException ex)
+        {
+            log.error("error ketika menampilkan form supplier Panel");
+        }
+    }//GEN-LAST:event_mnuItemSupplierActionPerformed
+
+    private FormPembelian formPembelian;
+    private void mnuItemPembelianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemPembelianActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+            if(formPembelian == null)
+            {
+                formPembelian = new FormPembelian();
+                jDesktopPane1.add(formPembelian);
+            }
+            else
+                formPembelian.toFront();
+            formPembelian.setVisible(true);
+            formPembelian.setSelected(true);
+            formPembelian.setSize(jDesktopPane1.getSize());
+        }
+        catch(PropertyVetoException ex)
+        {
+            log.error("error ketika menampilkan Form Pembelian");
+        }
+    }//GEN-LAST:event_mnuItemPembelianActionPerformed
+
+    private MasterAkunPanel masterAkunPanel;
+    private void mnuItemMasterAkunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemMasterAkunActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+            if(masterAkunPanel == null)
+            {
+                masterAkunPanel = new MasterAkunPanel();
+                jDesktopPane1.add(masterAkunPanel);
+            }
+            else
+                masterAkunPanel.toFront();
+            masterAkunPanel.setVisible(true);
+            masterAkunPanel.setSelected(true);
+            masterAkunPanel.setSize(jDesktopPane1.getSize());
+        }
+        catch(PropertyVetoException ex)
+        {
+            log.error("error ketika menampilkan Master Akun Panel");
+        }
+    }//GEN-LAST:event_mnuItemMasterAkunActionPerformed
+
+    private FormJurnalUmum formJurnalUmum;
+    private void mnuItemJurnalUmumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemJurnalUmumActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+            formJurnalUmum = new FormJurnalUmum();
+            jDesktopPane1.add(formJurnalUmum);
+            formJurnalUmum.toFront();
+            formJurnalUmum.setVisible(true);
+            formJurnalUmum.setSelected(true);
+            formJurnalUmum.setSize(jDesktopPane1.getSize());
+        }
+        catch(PropertyVetoException ex)
+        {
+            log.error("error ketika menampilkan Form Jurnal Umum");
+        }
+    }//GEN-LAST:event_mnuItemJurnalUmumActionPerformed
+
+    private FormBiaya formBiaya;
+    private void mnuItemBiayaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemBiayaActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+            formBiaya = new FormBiaya();
+            jDesktopPane1.add(formBiaya);
+            formBiaya.toFront();
+            formBiaya.setVisible(true);
+            formBiaya.setSelected(true);
+            formBiaya.setSize(jDesktopPane1.getSize());
+        }
+        catch(PropertyVetoException ex)
+        {
+            log.error("error ketika menampilkan Form Biaya");
+        }
+    }//GEN-LAST:event_mnuItemBiayaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -486,18 +626,21 @@ public class MenuUtama extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTree jTree1;
     private javax.swing.JMenuItem mnuCustomerReport;
     private javax.swing.JMenuItem mnuItemBarang;
+    private javax.swing.JMenuItem mnuItemBiaya;
     private javax.swing.JMenuItem mnuItemCustomer;
+    private javax.swing.JMenuItem mnuItemJurnalUmum;
     private javax.swing.JMenuItem mnuItemKaryawan;
     private javax.swing.JMenuItem mnuItemKluarProgram;
     private javax.swing.JMenuItem mnuItemLogOut;
-    private javax.swing.JMenuItem mnuItemNota;
+    private javax.swing.JMenuItem mnuItemMasterAkun;
+    private javax.swing.JMenuItem mnuItemPembelian;
     private javax.swing.JMenuItem mnuItemPenjualan;
     private javax.swing.JMenuItem mnuItemPenjualanHarian;
+    private javax.swing.JMenuItem mnuItemSupplier;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,11 +14,13 @@ public class DetailPenjualanDao extends BaseDaoHibernate<DetailPenjualan>
 {
     @SuppressWarnings("unchecked")
     public List<DetailPenjualan> getAll(int noNota) {
-        return sessionFactory.getCurrentSession().createQuery("select d from DetailPenjualan d where d.noNota = " + noNota).list();
+        return sessionFactory.getCurrentSession().createQuery("select d from DetailPenjualan d where d.penjualan.noNota = :noNota")
+                .setParameter("noNota", noNota).list();
     }
 
     public List sum(int noNota)
     {
-        return sessionFactory.getCurrentSession().createQuery("select sum(d.subTotal) from DetailPenjualan d  where d.noNota = " + noNota).list();
+        return sessionFactory.getCurrentSession().createQuery("select sum(d.subTotal) from DetailPenjualan d  where d.penjualan.noNota = :noNota")
+                .setParameter("noNota", noNota).list();
     }
 }

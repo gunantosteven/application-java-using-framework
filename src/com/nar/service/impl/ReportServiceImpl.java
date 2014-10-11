@@ -110,28 +110,4 @@ public class ReportServiceImpl implements ReportService{
         }
         return null;
     }
-
-    @Override
-    public JasperPrint getNotaReport() {
-        try
-        {
-            List<NotaReport> notaReports = 
-                    sessionFactory.getCurrentSession()
-                    .createQuery("select n.noNota as noNota,n.employee.nik as nik,n.employee.nama as nama from Nota n")
-                    .setResultTransformer(
-                        Transformers.aliasToBean(NotaReport.class))
-                    .list();
-            
-            InputStream is = ReportServiceImpl.class
-                    .getResourceAsStream("/reports/NotaReport.jasper");
-            
-            return JasperFillManager.fillReport(is, null,
-                    new JRBeanCollectionDataSource(notaReports));
-        }
-        catch(JRException ex) {
-            log.error("error generate NotaReport", ex);
-        }
-        return null;
-    }
-
 }

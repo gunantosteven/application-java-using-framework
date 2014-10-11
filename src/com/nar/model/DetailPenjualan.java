@@ -27,9 +27,6 @@ public class DetailPenjualan
 {
     @Id  @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
-    
-    @Column(name="NO_NOTA") 
-    private int noNota;
 
     @ManyToOne
     @JoinColumn(name="PENJUALAN_DETAILPENJUALAN")
@@ -68,10 +65,6 @@ public class DetailPenjualan
         return jumlahBarang;
     }
 
-    public int getNoNota() {
-        return noNota;
-    }
-
     public long getSubTotal() {
         return subTotal;
     }
@@ -90,10 +83,6 @@ public class DetailPenjualan
 
     public void setBarang(Barang barang) {
         this.barang = barang;
-    }
- 
-    public void setNoNota(int noNota) {
-        this.noNota = noNota;
     }
 
     public void setSubTotal(long subTotal) {

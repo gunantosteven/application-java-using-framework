@@ -6,6 +6,8 @@
 package com.nar.service;
 
 import com.nar.model.Barang;
+import com.nar.model.DetailPembelian;
+import com.nar.model.DetailPenjualan;
 import java.util.List;
 
 
@@ -16,4 +18,6 @@ public interface BarangService
     public Barang delete(Barang barang);
     public Barang getBarang(String id);
     public List<Barang> getBarangs();
+    public void kurangStock(List<DetailPenjualan> listDetailPenjualan);
+    public void tambahStock(List<DetailPembelian> listDetailPembelian);
 }

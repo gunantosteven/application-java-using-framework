@@ -17,5 +17,4 @@ public interface ReportService {
     JasperPrint getDailyPenjualanReport(Date date);
     JasperPrint getCustomerReport();
     JasperPrint getEmployeeReport();
-    JasperPrint getNotaReport();
 }

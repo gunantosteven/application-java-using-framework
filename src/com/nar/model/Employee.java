@@ -20,7 +20,6 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="T_EMPLOYEE")
-@Inheritance(strategy= InheritanceType.JOINED)
 public class Employee implements Serializable
 {
     @Id

@@ -6,18 +6,18 @@
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/NAR_STAINLESS_STEEL</property>
     <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.hbm2ddl.auto">none</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <mapping class="com.nar.model.Barang"/>
     <mapping class="com.nar.model.Employee"/>
     <mapping class="com.nar.model.Customer"/>
-    <mapping class="com.nar.model.Supervisor"/>
-    <mapping class="com.nar.model.Marketing"/>
-    <mapping class="com.nar.model.Operator"/>
-    <mapping class="com.nar.model.Admin"/>
+    <mapping class="com.nar.model.Supplier"/>
     <mapping class="com.nar.model.DetailPenjualan"/>
-    <mapping class="com.nar.model.Nota"/>
     <mapping class="com.nar.model.Penjualan"/>
+    <mapping class="com.nar.model.Pembelian"/>
+    <mapping class="com.nar.model.DetailPembelian"/>
+    <mapping class="com.nar.model.MasterAkun"/>
+    <mapping class="com.nar.model.JurnalUmum"/>
   </session-factory>
 </hibernate-configuration>

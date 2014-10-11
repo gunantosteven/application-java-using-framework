@@ -31,10 +31,12 @@ public class Barang implements Serializable
     private String deskripsi;
     @Column(name="SATUAN")
     private String satuan;
+    @Column(name="HARGA_BELI")
+    private int hargaBeli;
     @Column(name="HARGA_JUAL")
     private int hargaJual;
     @Column(name="STOCK")
-    private int stock;
+    private long stock;
 
     public String getDeskripsi() {
         return deskripsi;
@@ -42,6 +44,10 @@ public class Barang implements Serializable
 
     public int getHargaJual() {
         return hargaJual;
+    }
+
+    public int getHargaBeli() {
+        return hargaBeli;
     }
 
     public String getKodeBarang() {
@@ -56,7 +62,7 @@ public class Barang implements Serializable
         return satuan;
     }
 
-    public int getStock() {
+    public long getStock() {
         return stock;
     }
     
@@ -68,6 +74,10 @@ public class Barang implements Serializable
         this.hargaJual = hargaJual;
     }
 
+    public void setHargaBeli(int hargaBeli) {
+        this.hargaBeli = hargaBeli;
+    }
+    
     public void setKodeBarang(String kodeBarang) {
         this.kodeBarang = kodeBarang;
     }
@@ -80,10 +90,10 @@ public class Barang implements Serializable
         this.satuan = satuan;
     }
 
-    public void setStock(int stock) {
+    public void setStock(long stock) {
         this.stock = stock;
     }
-
+    
     public String toString()
     {
         return "Kode Barang : " + getKodeBarang() +
