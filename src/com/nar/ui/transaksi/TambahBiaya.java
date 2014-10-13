@@ -22,6 +22,7 @@ public class TambahBiaya extends javax.swing.JDialog {
 
     private JurnalUmum jurnalUmumBiaya;
     private JurnalUmum jurnalUmumKas;
+    private List<MasterAkun> listMasterAkun;
     
     private SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy-HHmmss");
     private static final Logger log = Logger.getLogger(TambahBiaya.class);
@@ -38,14 +39,15 @@ public class TambahBiaya extends javax.swing.JDialog {
     
     private void loadFormToModel()
     {
-        jurnalUmumBiaya.setDk("K");
+        System.out.println(Integer.parseInt(txtTotal.getText()));
+        jurnalUmumBiaya.setDk("D");
         jurnalUmumBiaya.setEmployee(MenuUtama.getEmployee());
         jurnalUmumBiaya.setFaktur(txtFaktur.getText());
-        jurnalUmumBiaya.setMasterAkun(Main.getMasterAkunService().getMasterAkun("602"));
+        jurnalUmumBiaya.setMasterAkun(listMasterAkun.get(comboBoxBiaya.getSelectedIndex()));
         jurnalUmumBiaya.setSaldo(Integer.parseInt(txtTotal.getText()));
         jurnalUmumBiaya.setTanggal(jCalendarComboBoxTanggal.getDate());
         
-        jurnalUmumKas.setDk("D");
+        jurnalUmumKas.setDk("K");
         jurnalUmumKas.setEmployee(MenuUtama.getEmployee());
         jurnalUmumKas.setFaktur(txtFaktur.getText());
         jurnalUmumKas.setMasterAkun(Main.getMasterAkunService().getMasterAkun("101"));
@@ -55,7 +57,7 @@ public class TambahBiaya extends javax.swing.JDialog {
     
     private void loadAkunBebanBiaya()
     {
-        List<MasterAkun> listMasterAkun = Main.getMasterAkunService().getAkuns("6%");
+        listMasterAkun = Main.getMasterAkunService().getAkuns("6%");
         for(MasterAkun masterAkun : listMasterAkun)
         {
             comboBoxBiaya.addItem(masterAkun.getNamaAkun());

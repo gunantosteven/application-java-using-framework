@@ -5,6 +5,7 @@
 
 package com.nar.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="T_CUSTOMER")
-public class Customer 
+public class Customer implements Serializable
 {
     @Id
     private String nip;

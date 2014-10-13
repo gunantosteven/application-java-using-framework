@@ -4,6 +4,7 @@
  */
 package com.nar.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="T_MASTERAKUN")
-public class MasterAkun {
+public class MasterAkun implements Serializable {
     
     @Id 
     @Column(name="KODE_AKUN")

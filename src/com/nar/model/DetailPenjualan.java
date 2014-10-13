@@ -5,6 +5,7 @@
 
 package com.nar.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -23,7 +24,7 @@ import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name="T_DETAIL_PENJUALAN")
-public class DetailPenjualan 
+public class DetailPenjualan implements Serializable
 {
     @Id  @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;

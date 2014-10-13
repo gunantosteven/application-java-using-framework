@@ -46,7 +46,7 @@ public class GenerateTables
         DataSource dataSource = (DataSource) appContext.getBean("dataSource");
         
         Configuration cfg = 
-          new AnnotationConfiguration().configure("hibernate.cfg.xml");
+          new Configuration().configure("hibernate.cfg.xml");
         Connection conn = dataSource.getConnection();
           new SchemaExport(cfg, conn).create(true, true);
           
@@ -151,6 +151,45 @@ public class GenerateTables
         masterAkunBebanSewaGedung.setNamaAkun("Beban Sewa Gedung");
         
         masterAkunService.save(masterAkunBebanSewaGedung);
+        
+        MasterAkun masterAkunBebanListrikDanTelepon = new MasterAkun();
+        masterAkunBebanListrikDanTelepon.setKodeAkun("611");
+        masterAkunBebanListrikDanTelepon.setNamaAkun("Beban Listrik Dan Telepon");
+        
+        masterAkunService.save(masterAkunBebanListrikDanTelepon);
+        
+        MasterAkun masterAkunBebanGajiKantor = new MasterAkun();
+        masterAkunBebanGajiKantor.setKodeAkun("601");
+        masterAkunBebanGajiKantor.setNamaAkun("Beban Gaji Kantor");
+        
+        masterAkunService.save(masterAkunBebanGajiKantor);
+        
+        MasterAkun masterBebanAsuransi = new MasterAkun();
+        masterBebanAsuransi.setKodeAkun("603");
+        masterBebanAsuransi.setNamaAkun("Beban Asuransi");
+        
+        masterAkunService.save(masterBebanAsuransi);
+        
+        MasterAkun masterBebanIklan = new MasterAkun();
+        masterBebanIklan.setKodeAkun("607");
+        masterBebanIklan.setNamaAkun("Beban Iklan");
+        
+        masterAkunService.save(masterBebanIklan);
+        
+        MasterAkun masterAdministrasiDanUmum = new MasterAkun();
+        masterAdministrasiDanUmum.setKodeAkun("612");
+        masterAdministrasiDanUmum.setNamaAkun("Beban Administrasi Dan Umum");
+        
+        masterAkunService.save(masterAdministrasiDanUmum);
+        
+        MasterAkun masterPerlengkapanKantor = new MasterAkun();
+        masterPerlengkapanKantor.setKodeAkun("605");
+        masterPerlengkapanKantor.setNamaAkun("Beban Perlengkapan Kantor");
+        
+        MasterAkun masterBebanLainLain = new MasterAkun();
+        masterBebanLainLain.setKodeAkun("613");
+        masterBebanLainLain.setNamaAkun("Beban Lain-Lain");
+        
         
 //        JurnalUmum jurnalUmumPembelian = new JurnalUmum();
 //        jurnalUmumPembelian.setDk("D");

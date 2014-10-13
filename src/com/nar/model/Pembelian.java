@@ -4,6 +4,7 @@
  */
 package com.nar.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -24,7 +25,7 @@ import org.hibernate.annotations.Cascade;
  */
 @Entity
 @Table(name="T_PEMBELIAN")
-public class Pembelian 
+public class Pembelian implements Serializable
 {
     @Id
     private String noFaktur;

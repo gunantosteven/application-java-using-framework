@@ -4,6 +4,7 @@
  */
 package com.nar.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="T_JURNALUMUM")
-public class JurnalUmum {
+public class JurnalUmum implements Serializable {
     
     @Id  @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;

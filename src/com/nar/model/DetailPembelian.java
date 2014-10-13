@@ -4,6 +4,7 @@
  */
 package com.nar.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="T_DETAIL_PEMBELIAN")
-public class DetailPembelian {
+public class DetailPembelian implements Serializable {
     @Id  @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 

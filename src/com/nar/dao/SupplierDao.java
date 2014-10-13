@@ -26,5 +26,4 @@ public class SupplierDao extends BaseDaoHibernate<Supplier> {
             .setParameter(4, kode).executeUpdate();
         return supplier;
     }
-    
 }
