@@ -373,11 +373,15 @@ public class FormJurnalUmum extends javax.swing.JInternalFrame {
     private void calendarComboBoxMulaiStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_calendarComboBoxMulaiStateChanged
         // TODO add your handling code here:
         refreshTable();
+        
+        hitungDebitKredit();
     }//GEN-LAST:event_calendarComboBoxMulaiStateChanged
 
     private void calendarComboBoxSampaiStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_calendarComboBoxSampaiStateChanged
         // TODO add your handling code here:
         refreshTable();
+        
+        hitungDebitKredit();
     }//GEN-LAST:event_calendarComboBoxSampaiStateChanged
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened

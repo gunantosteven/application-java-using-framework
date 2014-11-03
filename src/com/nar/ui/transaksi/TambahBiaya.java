@@ -215,8 +215,8 @@ public class TambahBiaya extends javax.swing.JDialog {
 
             try
             {
-                Main.getJurnalUmumService().save(jurnalUmumKas);
                 Main.getJurnalUmumService().save(jurnalUmumBiaya);
+                Main.getJurnalUmumService().save(jurnalUmumKas); 
             }
             catch(Exception ex)
             {

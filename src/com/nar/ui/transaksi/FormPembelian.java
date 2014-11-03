@@ -53,7 +53,7 @@ public class FormPembelian extends javax.swing.JInternalFrame {
         pembelian.setEmployee(MenuUtama.getEmployee());
         pembelian.setListDetailPembelian(listDetailPembelian);
         pembelian.setNoFaktur(txtNoFaktur.getText());
-        pembelian.setTanggalPembelian(new Date());
+        pembelian.setTanggalPembelian(calendarComboBoxTanggal.getDate());
         pembelian.setTotalBayar(Integer.parseInt(txtBayar.getText()));
         
         // set all pembelian variable in detailPembelian class
@@ -65,14 +65,14 @@ public class FormPembelian extends javax.swing.JInternalFrame {
         jurnalUmumPembelian.setFaktur(txtNoFaktur.getText());
         jurnalUmumPembelian.setMasterAkun(Main.getMasterAkunService().getMasterAkun("500"));
         jurnalUmumPembelian.setSaldo(Integer.parseInt(txtBayar.getText()));
-        jurnalUmumPembelian.setTanggal(new Date());
+        jurnalUmumPembelian.setTanggal(calendarComboBoxTanggal.getDate());
         
         jurnalUmumKas.setDk("K");
         jurnalUmumKas.setEmployee(MenuUtama.getEmployee());
         jurnalUmumKas.setFaktur(txtNoFaktur.getText());
         jurnalUmumKas.setMasterAkun(Main.getMasterAkunService().getMasterAkun("101"));
         jurnalUmumKas.setSaldo(Integer.parseInt(txtBayar.getText()));
-        jurnalUmumKas.setTanggal(new Date());
+        jurnalUmumKas.setTanggal(calendarComboBoxTanggal.getDate());
     }
     
     private void loadFormDetailPembelianToModel()
@@ -235,6 +235,8 @@ public class FormPembelian extends javax.swing.JInternalFrame {
         btnMasukan = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
         btnSelesai = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        calendarComboBoxTanggal = new de.wannawork.jcalendar.JCalendarComboBox();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -321,6 +323,8 @@ public class FormPembelian extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel9.setText("Tanggal Pembelian");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -363,12 +367,18 @@ public class FormPembelian extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNoFaktur, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtKodeSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCari)))
-                        .addGap(576, 652, Short.MAX_VALUE))
+                                .addComponent(btnCari)
+                                .addGap(576, 652, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtNoFaktur, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(calendarComboBoxTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnSelesai)))
@@ -379,9 +389,12 @@ public class FormPembelian extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtNoFaktur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(txtNoFaktur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9))
+                    .addComponent(calendarComboBoxTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -400,7 +413,7 @@ public class FormPembelian extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8)
                     .addComponent(txtTotalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,8 +506,9 @@ public class FormPembelian extends javax.swing.JInternalFrame {
         loadFormPembelianToModel();
         Main.getPembelianService().save(pembelian);
         Main.getBarangService().tambahStock(listDetailPembelian);
-        Main.getJurnalUmumService().save(jurnalUmumKas);
         Main.getJurnalUmumService().save(jurnalUmumPembelian);
+        Main.getJurnalUmumService().save(jurnalUmumKas);
+        
         
         jurnalUmumKas.setId(0);
         jurnalUmumPembelian.setId(0);
@@ -518,6 +532,7 @@ public class FormPembelian extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnMasukan;
     private javax.swing.JButton btnSelesai;
+    private de.wannawork.jcalendar.JCalendarComboBox calendarComboBoxTanggal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -526,6 +541,7 @@ public class FormPembelian extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablePembelian;

@@ -42,9 +42,6 @@ public class DetailPenjualan implements Serializable
     
     @Column(name="harga_satuan")
     private int hargaSatuan;
-    
-    @Column(name="total")
-    private long subTotal;
 
     public int getId() {
         return id;
@@ -66,10 +63,6 @@ public class DetailPenjualan implements Serializable
         return jumlahBarang;
     }
 
-    public long getSubTotal() {
-        return subTotal;
-    }
-
     public void setPenjualan(Penjualan penjualan) {
         this.penjualan = penjualan;
     }
@@ -84,10 +77,6 @@ public class DetailPenjualan implements Serializable
 
     public void setBarang(Barang barang) {
         this.barang = barang;
-    }
-
-    public void setSubTotal(long subTotal) {
-        this.subTotal = subTotal;
     }
 
     public void setId(int id) {

@@ -10,6 +10,7 @@ import com.nar.ui.master.EmployeePanel;
 import com.nar.ui.master.MasterAkunPanel;
 import com.nar.ui.master.SupplierPanel;
 import com.nar.ui.reports.DailyPenjualanReportPanel;
+import com.nar.ui.reports.LabaRugiReportPanel;
 import com.nar.ui.reports.ReportCustomer;
 import com.nar.ui.reports.ReportEmployee;
 import com.nar.ui.transaksi.FormBiaya;
@@ -123,9 +124,15 @@ public class MenuUtama extends javax.swing.JFrame {
         mnuItemBiaya = new javax.swing.JMenuItem();
         mnuItemJurnalUmum = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mnuData = new javax.swing.JMenu();
+        mnuItemEmployeeReport = new javax.swing.JMenuItem();
         mnuCustomerReport = new javax.swing.JMenuItem();
+        mnuPenjualan = new javax.swing.JMenu();
         mnuItemPenjualanHarian = new javax.swing.JMenuItem();
+        mnuPembelian = new javax.swing.JMenu();
+        mnuAkuntasi = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         mnuItemLogOut = new javax.swing.JMenuItem();
         mnuItemKluarProgram = new javax.swing.JMenuItem();
@@ -253,13 +260,15 @@ public class MenuUtama extends javax.swing.JFrame {
 
         jMenu5.setText("Laporan");
 
-        jMenuItem1.setText("Employee");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mnuData.setText("Data");
+
+        mnuItemEmployeeReport.setText("Employee");
+        mnuItemEmployeeReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mnuItemEmployeeReportActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem1);
+        mnuData.add(mnuItemEmployeeReport);
 
         mnuCustomerReport.setText("Customer");
         mnuCustomerReport.addActionListener(new java.awt.event.ActionListener() {
@@ -267,7 +276,11 @@ public class MenuUtama extends javax.swing.JFrame {
                 mnuCustomerReportActionPerformed(evt);
             }
         });
-        jMenu5.add(mnuCustomerReport);
+        mnuData.add(mnuCustomerReport);
+
+        jMenu5.add(mnuData);
+
+        mnuPenjualan.setText("Penjualan");
 
         mnuItemPenjualanHarian.setText("Penjualan Harian");
         mnuItemPenjualanHarian.addActionListener(new java.awt.event.ActionListener() {
@@ -275,7 +288,27 @@ public class MenuUtama extends javax.swing.JFrame {
                 mnuItemPenjualanHarianActionPerformed(evt);
             }
         });
-        jMenu5.add(mnuItemPenjualanHarian);
+        mnuPenjualan.add(mnuItemPenjualanHarian);
+
+        jMenu5.add(mnuPenjualan);
+
+        mnuPembelian.setText("Pembelian");
+        jMenu5.add(mnuPembelian);
+
+        mnuAkuntasi.setText("Akuntasi");
+
+        jMenuItem1.setText("Laba / Rugi");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnuAkuntasi.add(jMenuItem1);
+
+        jMenuItem2.setText("Neraca Saldo");
+        mnuAkuntasi.add(jMenuItem2);
+
+        jMenu5.add(mnuAkuntasi);
 
         jMenuBar1.add(jMenu5);
 
@@ -322,8 +355,8 @@ public class MenuUtama extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-909)/2, (screenSize.height-656)/2, 909, 656);
+        setSize(new java.awt.Dimension(909, 656));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public BarangPanel barangPanel;
@@ -495,7 +528,7 @@ public class MenuUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuCustomerReportActionPerformed
     
     public ReportEmployee reportEmployee;
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mnuItemEmployeeReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemEmployeeReportActionPerformed
         // TODO add your handling code here:
         try
         {
@@ -514,7 +547,7 @@ public class MenuUtama extends javax.swing.JFrame {
         {
             log.error("error ketika menampilkan Report Employee");
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_mnuItemEmployeeReportActionPerformed
 
     public SupplierPanel supplierPanel;
     private void mnuItemSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemSupplierActionPerformed
@@ -617,6 +650,28 @@ public class MenuUtama extends javax.swing.JFrame {
             log.error("error ketika menampilkan Form Biaya");
         }
     }//GEN-LAST:event_mnuItemBiayaActionPerformed
+    
+    private LabaRugiReportPanel labaRugiReportPanel;
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+            if(labaRugiReportPanel == null)
+            {
+                labaRugiReportPanel = new LabaRugiReportPanel();
+                jDesktopPane1.add(labaRugiReportPanel);
+            }
+            else
+                labaRugiReportPanel.toFront();
+            labaRugiReportPanel.setVisible(true);
+            labaRugiReportPanel.setSelected(true);
+            labaRugiReportPanel.setSize(jDesktopPane1.getSize());
+        }
+        catch(PropertyVetoException ex)
+        {
+            log.error("error ketika menampilkan Report Employee");
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -626,13 +681,17 @@ public class MenuUtama extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTree jTree1;
+    private javax.swing.JMenu mnuAkuntasi;
     private javax.swing.JMenuItem mnuCustomerReport;
+    private javax.swing.JMenu mnuData;
     private javax.swing.JMenuItem mnuItemBarang;
     private javax.swing.JMenuItem mnuItemBiaya;
     private javax.swing.JMenuItem mnuItemCustomer;
+    private javax.swing.JMenuItem mnuItemEmployeeReport;
     private javax.swing.JMenuItem mnuItemJurnalUmum;
     private javax.swing.JMenuItem mnuItemKaryawan;
     private javax.swing.JMenuItem mnuItemKluarProgram;
@@ -642,5 +701,7 @@ public class MenuUtama extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuItemPenjualan;
     private javax.swing.JMenuItem mnuItemPenjualanHarian;
     private javax.swing.JMenuItem mnuItemSupplier;
+    private javax.swing.JMenu mnuPembelian;
+    private javax.swing.JMenu mnuPenjualan;
     // End of variables declaration//GEN-END:variables
 }

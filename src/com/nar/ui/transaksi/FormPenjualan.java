@@ -56,7 +56,7 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
         penjualan.setEmployee(MenuUtama.getEmployee());
         penjualan.setListDetailPenjualan(listDetailPenjualan);
         penjualan.setNoFaktur(txtNoNota.getText());
-        penjualan.setTanggalPenjualan(new Date());
+        penjualan.setTanggalPenjualan(calendarComboBoxTanggal.getDate());
         penjualan.setTotalBayar(Integer.parseInt(txtBayar.getText()));
         
         // set all penjualan variable in detailPenjualan class
@@ -68,14 +68,14 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
         jurnalUmumPenjualan.setFaktur(txtNoNota.getText());
         jurnalUmumPenjualan.setMasterAkun(Main.getMasterAkunService().getMasterAkun("400"));
         jurnalUmumPenjualan.setSaldo(Integer.parseInt(txtBayar.getText()));
-        jurnalUmumPenjualan.setTanggal(new Date());
+        jurnalUmumPenjualan.setTanggal(calendarComboBoxTanggal.getDate());
         
         jurnalUmumKas.setDk("D");
         jurnalUmumKas.setEmployee(MenuUtama.getEmployee());
         jurnalUmumKas.setFaktur(txtNoNota.getText());
         jurnalUmumKas.setMasterAkun(Main.getMasterAkunService().getMasterAkun("101"));
         jurnalUmumKas.setSaldo(Integer.parseInt(txtBayar.getText()));
-        jurnalUmumKas.setTanggal(new Date());
+        jurnalUmumKas.setTanggal(calendarComboBoxTanggal.getDate());
     }
     
     private void loadFormDetailPenjualanToModel()
@@ -84,7 +84,6 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
         detailPenjualan.setBarang(Main.getBarangService().getBarang(txtKodeBarang.getText()));
         detailPenjualan.setHargaSatuan(Integer.parseInt(txtHargaSatuan.getText()));
         detailPenjualan.setJumlahBarang(Integer.parseInt(txtJumlahBarang.getText()));
-        detailPenjualan.setSubTotal(Integer.parseInt(txtTotalHarga.getText()));
     }
     
     public void updateNoFaktur()
@@ -120,7 +119,7 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
         while(iterator.hasNext())
         {
             DetailPenjualan detailPenjualan = iterator.next();
-            total += detailPenjualan.getSubTotal();
+            total += detailPenjualan.getJumlahBarang() * detailPenjualan.getHargaSatuan();
         }
 
         txtBayar.setText(total + "");
@@ -137,7 +136,7 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
         }
         catch(NumberFormatException ex)
         {
-            txtKembali.setText("");
+            txtKembali.setText("0");
         }
     }
     
@@ -178,7 +177,7 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
                 case 3:
                     return d.getHargaSatuan();
                 case 4:
-                    return d.getSubTotal();
+                    return d.getJumlahBarang() * d.getHargaSatuan();
                 default:
                     return "";
                         
@@ -251,6 +250,8 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
         txtTotalHarga = new javax.swing.JTextField();
         btnHapus = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        calendarComboBoxTanggal = new de.wannawork.jcalendar.JCalendarComboBox();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -354,6 +355,8 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel9.setText("Tanggal Penjualan");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -379,9 +382,14 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
                                         .addComponent(txtKodeBarang)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCariCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnCariCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(calendarComboBoxTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(lblStatusUser)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(lblStatus))
@@ -430,11 +438,14 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNoFaktur)
-                    .addComponent(txtNoNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblStatusUser)
-                    .addComponent(lblStatus))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblNoFaktur)
+                        .addComponent(txtNoNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblStatusUser)
+                        .addComponent(lblStatus)
+                        .addComponent(jLabel9))
+                    .addComponent(calendarComboBoxTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblKodeCustomer)
@@ -453,7 +464,7 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8)
                     .addComponent(txtTotalHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
@@ -527,8 +538,8 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
         loadFormPenjualanToModel();
         Main.getPenjualanService().save(penjualan);
         Main.getBarangService().kurangStock(listDetailPenjualan);
-        Main.getJurnalUmumService().save(jurnalUmumPenjualan);
         Main.getJurnalUmumService().save(jurnalUmumKas);
+        Main.getJurnalUmumService().save(jurnalUmumPenjualan);
         
         jurnalUmumPenjualan.setId(0);
         jurnalUmumKas.setId(0);
@@ -581,6 +592,7 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCariCustomer;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnMasukan;
+    private de.wannawork.jcalendar.JCalendarComboBox calendarComboBoxTanggal;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -590,6 +602,7 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblKodeCustomer;
     private javax.swing.JLabel lblNoFaktur;
