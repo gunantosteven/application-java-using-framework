@@ -3,13 +3,15 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["D:\\Netbeans Projects\\AplikasiPenjualaanBarang\\src\\reports\\"]]></defaultValueExpression>
+	<parameter name="SUBREPORT_DIR" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="subreport_pendapatan" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="subreport_biaya" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="dari" class="java.util.Date"/>
 	<parameter name="sampai" class="java.util.Date"/>
+	<parameter name="SUBREPORT_pendapatan_DIR" class="java.io.InputStream"/>
+	<parameter name="SUBREPORT_biaya_DIR" class="java.io.InputStream"/>
 	<queryString>
 		<![CDATA[SELECT SUM( dp.jumlah_barang * ( dp.harga_satuan - b.HARGA_BELI ) ) as pendapatan, (select SUM(saldo) from t_masterakun m inner join t_jurnalumum j on j.JURNALUMUM_MASTERAKUN = m.KODE_AKUN where m.KODE_AKUN like '6%') as biaya
 FROM t_detail_penjualan dp
@@ -42,12 +44,12 @@ INNER JOIN t_barang b ON dp.BARANG_ID = b.KODE_BARANG]]>
 			<subreport>
 				<reportElement x="0" y="2" width="555" height="21" uuid="bd969082-e2fb-440a-a9a7-1a7cea4be020"/>
 				<dataSourceExpression><![CDATA[$P{subreport_pendapatan}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "laporanlabarugi_pendapatan.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_pendapatan_DIR}]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="0" y="25" width="555" height="13" uuid="8fbcc0fd-8092-46eb-91b7-746462cae799"/>
 				<dataSourceExpression><![CDATA[$P{subreport_biaya}]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "laporanlabarugi_biaya.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_biaya_DIR}]]></subreportExpression>
 			</subreport>
 		</band>
 	</columnHeader>

@@ -159,6 +159,10 @@ public class ReportServiceImpl implements ReportService{
             parameters.put("subreport_biaya", new JRBeanCollectionDataSource(biayaReports));
             parameters.put("dari", dari);
             parameters.put("sampai", sampai);
+            parameters.put("SUBREPORT_pendapatan_DIR", ReportServiceImpl.class
+                    .getResourceAsStream("/reports/laporanlabarugi_pendapatan.jasper"));
+            parameters.put("SUBREPORT_biaya_DIR", ReportServiceImpl.class
+                    .getResourceAsStream("/reports/laporanlabarugi_biaya.jasper"));
             
             return JasperFillManager.fillReport(is, parameters,
                     new JRBeanCollectionDataSource(labaRugiReports));
