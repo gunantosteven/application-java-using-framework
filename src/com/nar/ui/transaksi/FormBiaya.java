@@ -99,8 +99,7 @@ public class FormBiaya extends javax.swing.JInternalFrame {
                 case 3:
                     return j.getFaktur();
                 case 4:
-                    long debet = j.getDk().equals("D") ? j.getSaldo() : 0;
-                    return debet;
+                    return j.getDebit();
                 case 5:
                     return j.getEmployee().getNama();
                 default:

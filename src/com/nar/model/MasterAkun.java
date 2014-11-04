@@ -24,6 +24,9 @@ public class MasterAkun implements Serializable {
     
     @Column(name="NAMA_AKUN")
     private String namaAkun;
+    
+    @Column(name="DEFAULT_AWAL")
+    private char defaultAwal;
 
     public String getKodeAkun() {
         return kodeAkun;
@@ -39,5 +42,13 @@ public class MasterAkun implements Serializable {
 
     public void setNamaAkun(String namaAkun) {
         this.namaAkun = namaAkun;
+    }
+
+    public char getDefaultAwal() {
+        return defaultAwal;
+    }
+
+    public void setDefaultAwal(char defaultAwal) {
+        this.defaultAwal = defaultAwal;
     }
 }

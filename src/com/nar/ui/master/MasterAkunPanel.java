@@ -39,12 +39,17 @@ public class MasterAkunPanel extends javax.swing.JInternalFrame {
     {
         masterAkun.setKodeAkun(txtNomerAkun.getText());
         masterAkun.setNamaAkun(txtNamaAkun.getText());
+        masterAkun.setDefaultAwal(comboBoxDefaultAwal.getSelectedItem().toString().charAt(0));
     }
     
     private void loadModelToForm()
     {
         txtNomerAkun.setText(masterAkun.getKodeAkun());
         txtNamaAkun.setText(masterAkun.getNamaAkun());
+        if(masterAkun.getDefaultAwal() == 'D')
+            comboBoxDefaultAwal.setSelectedIndex(0);
+        else
+            comboBoxDefaultAwal.setSelectedIndex(1);
     }
 
     private class MasterAkunTableModel extends AbstractTableModel
@@ -76,6 +81,8 @@ public class MasterAkunPanel extends javax.swing.JInternalFrame {
                     return m.getKodeAkun();
                 case 1:
                     return m.getNamaAkun();
+                case 2:
+                    return m.getDefaultAwal();
                 default:
                     return "";
             }
@@ -138,6 +145,8 @@ public class MasterAkunPanel extends javax.swing.JInternalFrame {
         tableMasterAkun = new javax.swing.JTable();
         btnSimpan = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        comboBoxDefaultAwal = new javax.swing.JComboBox();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -152,11 +161,11 @@ public class MasterAkunPanel extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nomer Akun", "Nama Akun"
+                "Nomer Akun", "Nama Akun", "Default Awal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -179,20 +188,14 @@ public class MasterAkunPanel extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel3.setText("Default Awal");
+
+        comboBoxDefaultAwal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Debit", "Kredit" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNamaAkun, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNomerAkun, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -200,10 +203,22 @@ public class MasterAkunPanel extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDelete)
                 .addGap(2, 2, 2))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNamaAkun, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomerAkun, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxDefaultAwal, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -212,8 +227,12 @@ public class MasterAkunPanel extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(txtNamaAkun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(comboBoxDefaultAwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpan)
@@ -269,8 +288,10 @@ public class MasterAkunPanel extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSimpan;
+    private javax.swing.JComboBox comboBoxDefaultAwal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableMasterAkun;
     private javax.swing.JTextField txtNamaAkun;

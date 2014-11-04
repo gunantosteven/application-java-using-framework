@@ -63,19 +63,17 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
         for(DetailPenjualan detailPenjualan : listDetailPenjualan)
             detailPenjualan.setPenjualan(penjualan);
         
-        jurnalUmumPenjualan.setDk("K");
-        jurnalUmumPenjualan.setEmployee(MenuUtama.getEmployee());
-        jurnalUmumPenjualan.setFaktur(txtNoNota.getText());
-        jurnalUmumPenjualan.setMasterAkun(Main.getMasterAkunService().getMasterAkun("400"));
-        jurnalUmumPenjualan.setSaldo(Integer.parseInt(txtBayar.getText()));
-        jurnalUmumPenjualan.setTanggal(calendarComboBoxTanggal.getDate());
-        
-        jurnalUmumKas.setDk("D");
         jurnalUmumKas.setEmployee(MenuUtama.getEmployee());
         jurnalUmumKas.setFaktur(txtNoNota.getText());
         jurnalUmumKas.setMasterAkun(Main.getMasterAkunService().getMasterAkun("101"));
-        jurnalUmumKas.setSaldo(Integer.parseInt(txtBayar.getText()));
+        jurnalUmumKas.setDebit(Integer.parseInt(txtBayar.getText()));
         jurnalUmumKas.setTanggal(calendarComboBoxTanggal.getDate());
+        
+        jurnalUmumPenjualan.setEmployee(MenuUtama.getEmployee());
+        jurnalUmumPenjualan.setFaktur(txtNoNota.getText());
+        jurnalUmumPenjualan.setMasterAkun(Main.getMasterAkunService().getMasterAkun("400"));
+        jurnalUmumPenjualan.setKredit(Integer.parseInt(txtBayar.getText()));
+        jurnalUmumPenjualan.setTanggal(calendarComboBoxTanggal.getDate());
     }
     
     private void loadFormDetailPenjualanToModel()

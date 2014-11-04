@@ -60,18 +60,16 @@ public class FormPembelian extends javax.swing.JInternalFrame {
         for(DetailPembelian detailPembelian : listDetailPembelian)
             detailPembelian.setPembelian(pembelian);
         
-        jurnalUmumPembelian.setDk("D");
         jurnalUmumPembelian.setEmployee(MenuUtama.getEmployee());
         jurnalUmumPembelian.setFaktur(txtNoFaktur.getText());
         jurnalUmumPembelian.setMasterAkun(Main.getMasterAkunService().getMasterAkun("500"));
-        jurnalUmumPembelian.setSaldo(Integer.parseInt(txtBayar.getText()));
+        jurnalUmumPembelian.setDebit(Integer.parseInt(txtBayar.getText()));
         jurnalUmumPembelian.setTanggal(calendarComboBoxTanggal.getDate());
-        
-        jurnalUmumKas.setDk("K");
+
         jurnalUmumKas.setEmployee(MenuUtama.getEmployee());
         jurnalUmumKas.setFaktur(txtNoFaktur.getText());
         jurnalUmumKas.setMasterAkun(Main.getMasterAkunService().getMasterAkun("101"));
-        jurnalUmumKas.setSaldo(Integer.parseInt(txtBayar.getText()));
+        jurnalUmumKas.setKredit(Integer.parseInt(txtBayar.getText()));
         jurnalUmumKas.setTanggal(calendarComboBoxTanggal.getDate());
     }
     

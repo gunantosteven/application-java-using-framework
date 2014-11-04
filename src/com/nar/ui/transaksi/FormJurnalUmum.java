@@ -52,10 +52,8 @@ public class FormJurnalUmum extends javax.swing.JInternalFrame {
         int debit = 0; int kredit = 0;
         for(JurnalUmum jurnalUmum : listJurnalUmum)
         {
-            if(jurnalUmum.getDk().equals("D"))
-                debit += jurnalUmum.getSaldo();
-            else
-                kredit += jurnalUmum.getSaldo();
+            debit += jurnalUmum.getDebit();
+            kredit += jurnalUmum.getKredit();
         }
         lblDebit.setText(debit + "");
         lblKredit.setText(kredit + "");
@@ -114,11 +112,9 @@ public class FormJurnalUmum extends javax.swing.JInternalFrame {
                 case 3:
                     return j.getFaktur();
                 case 4:
-                    long debet = j.getDk().equals("D") ? j.getSaldo() : 0;
-                    return debet;
+                    return j.getDebit();
                 case 5:
-                    long kredit = j.getDk().equals("K") ? j.getSaldo() : 0;
-                    return kredit;
+                    return j.getKredit();
                 case 6:
                     return j.getEmployee().getNama();
                 default:

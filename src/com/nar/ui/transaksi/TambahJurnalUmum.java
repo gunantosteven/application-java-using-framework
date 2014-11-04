@@ -36,13 +36,11 @@ public class TambahJurnalUmum extends javax.swing.JDialog {
         jurnalUmum.setFaktur(txtFaktur.getText());
         if(radioButtonDebit.isSelected())
         {
-            jurnalUmum.setDk("D");
-            jurnalUmum.setSaldo(Long.parseLong(txtDebit.getText()));
+            jurnalUmum.setDebit(Long.parseLong(txtDebit.getText()));
         }
         else
         {
-            jurnalUmum.setDk("K");
-            jurnalUmum.setSaldo(Long.parseLong(txtKredit.getText()));
+            jurnalUmum.setKredit(Long.parseLong(txtKredit.getText()));
         }
     }
     

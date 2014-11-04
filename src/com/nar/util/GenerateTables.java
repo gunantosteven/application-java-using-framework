@@ -119,76 +119,89 @@ public class GenerateTables
         MasterAkun masterAkunKas = new MasterAkun();
         masterAkunKas.setKodeAkun("101");
         masterAkunKas.setNamaAkun("Kas");
+        masterAkunKas.setDefaultAwal('D');
         
         masterAkunService.save(masterAkunKas);
         
         MasterAkun masterAkunPiutangDagang = new MasterAkun();
         masterAkunPiutangDagang.setKodeAkun("103");
         masterAkunPiutangDagang.setNamaAkun("Piutang Dagang");
+        masterAkunPiutangDagang.setDefaultAwal('D');
         
         masterAkunService.save(masterAkunPiutangDagang);
         
         MasterAkun masterAkunHutangDagang = new MasterAkun();
         masterAkunHutangDagang.setKodeAkun("201");
         masterAkunHutangDagang.setNamaAkun("Hutang Dagang");
+        masterAkunHutangDagang.setDefaultAwal('K');
         
         masterAkunService.save(masterAkunHutangDagang);
         
         MasterAkun masterAkunPembelian = new MasterAkun();
         masterAkunPembelian.setKodeAkun("500");
         masterAkunPembelian.setNamaAkun("Pembelian");
+        masterAkunPembelian.setDefaultAwal('D');
         
         masterAkunService.save(masterAkunPembelian);
         
         MasterAkun masterAkunPenjualan = new MasterAkun();
         masterAkunPenjualan.setKodeAkun("400");
         masterAkunPenjualan.setNamaAkun("Penjualan");
+        masterAkunPenjualan.setDefaultAwal('K');
         
         masterAkunService.save(masterAkunPenjualan);
         
         MasterAkun masterAkunBebanSewaGedung = new MasterAkun();
         masterAkunBebanSewaGedung.setKodeAkun("602");
         masterAkunBebanSewaGedung.setNamaAkun("Beban Sewa Gedung");
+        masterAkunBebanSewaGedung.setDefaultAwal('D');
         
         masterAkunService.save(masterAkunBebanSewaGedung);
         
         MasterAkun masterAkunBebanListrikDanTelepon = new MasterAkun();
         masterAkunBebanListrikDanTelepon.setKodeAkun("611");
         masterAkunBebanListrikDanTelepon.setNamaAkun("Beban Listrik Dan Telepon");
+        masterAkunBebanListrikDanTelepon.setDefaultAwal('D');
         
         masterAkunService.save(masterAkunBebanListrikDanTelepon);
         
         MasterAkun masterAkunBebanGajiKantor = new MasterAkun();
         masterAkunBebanGajiKantor.setKodeAkun("601");
         masterAkunBebanGajiKantor.setNamaAkun("Beban Gaji Kantor");
+        masterAkunBebanGajiKantor.setDefaultAwal('D');
         
         masterAkunService.save(masterAkunBebanGajiKantor);
         
         MasterAkun masterBebanAsuransi = new MasterAkun();
         masterBebanAsuransi.setKodeAkun("603");
         masterBebanAsuransi.setNamaAkun("Beban Asuransi");
+        masterBebanAsuransi.setDefaultAwal('D');
         
         masterAkunService.save(masterBebanAsuransi);
         
         MasterAkun masterBebanIklan = new MasterAkun();
         masterBebanIklan.setKodeAkun("607");
         masterBebanIklan.setNamaAkun("Beban Iklan");
+        masterBebanIklan.setDefaultAwal('D');
         
         masterAkunService.save(masterBebanIklan);
         
         MasterAkun masterAdministrasiDanUmum = new MasterAkun();
         masterAdministrasiDanUmum.setKodeAkun("612");
         masterAdministrasiDanUmum.setNamaAkun("Beban Administrasi Dan Umum");
+        masterAdministrasiDanUmum.setDefaultAwal('D');
         
         masterAkunService.save(masterAdministrasiDanUmum);
         
         MasterAkun masterPerlengkapanKantor = new MasterAkun();
         masterPerlengkapanKantor.setKodeAkun("605");
         masterPerlengkapanKantor.setNamaAkun("Beban Perlengkapan Kantor");
+        masterPerlengkapanKantor.setDefaultAwal('D');
         
         MasterAkun masterBebanLainLain = new MasterAkun();
         masterBebanLainLain.setKodeAkun("613");
         masterBebanLainLain.setNamaAkun("Beban Lain-Lain");
+        masterBebanLainLain.setDefaultAwal('D');
         
         
 //        JurnalUmum jurnalUmumPembelian = new JurnalUmum();

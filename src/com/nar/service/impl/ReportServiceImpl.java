@@ -8,11 +8,13 @@ package com.nar.service.impl;
 
 import com.nar.Main;
 import com.nar.model.DetailPenjualan;
+import com.nar.report.AkunNeracaSaldo;
 import com.nar.report.BiayaReport;
 import com.nar.report.CustomerReport;
 import com.nar.report.DailyPenjualanReport;
 import com.nar.report.EmployeeReport;
 import com.nar.report.LabaRugiReport;
+import com.nar.report.NeracaSaldoReport;
 import com.nar.report.NotaReport;
 import com.nar.report.PendapatanReport;
 import com.nar.service.ReportService;
@@ -122,7 +124,7 @@ public class ReportServiceImpl implements ReportService{
             List<LabaRugiReport> labaRugiReports = 
                     sessionFactory.getCurrentSession()
                     .createQuery("select sum( dp.jumlahBarang * (dp.hargaSatuan - b.hargaBeli)) as pendapatan, "
-                            + "(select SUM(j.saldo) from JurnalUmum j join j.masterAkun m where m.kodeAkun like '6%' and j.tanggal between :dari and :sampai) as biaya "
+                            + "(select SUM(j.debit) from JurnalUmum j join j.masterAkun m where m.kodeAkun like '6%' and j.tanggal between :dari and :sampai) as biaya "
                             + "from DetailPenjualan dp join dp.barang b join dp.penjualan p where p.tanggalPenjualan between :dari and :sampai")
                     .setParameter("dari", dari)
                     .setParameter("sampai", sampai)
@@ -132,7 +134,6 @@ public class ReportServiceImpl implements ReportService{
             
             InputStream is = ReportServiceImpl.class
                     .getResourceAsStream("/reports/laporanlabarugi.jasper");
-            
             
             Map<String,Object> parameters = new HashMap<String, Object>();
             
@@ -148,7 +149,7 @@ public class ReportServiceImpl implements ReportService{
                    
             List<BiayaReport> biayaReports = 
                     sessionFactory.getCurrentSession()
-                    .createQuery("select m.namaAkun as namaAkun, sum(j.saldo) as saldo from JurnalUmum j join j.masterAkun m where m.kodeAkun like '6%' and j.tanggal between :dari and :sampai group by m.kodeAkun")
+                    .createQuery("select m.namaAkun as namaAkun, sum(j.debit) as saldo from JurnalUmum j join j.masterAkun m where m.kodeAkun like '6%' and j.tanggal between :dari and :sampai group by m.kodeAkun")
                     .setParameter("dari", dari)
                     .setParameter("sampai", sampai)
                     .setResultTransformer(
@@ -170,10 +171,57 @@ public class ReportServiceImpl implements ReportService{
         catch(PropertyAccessException ex)
         {
             log.error("error generate EmployeeReport", ex);
-            JOptionPane.showMessageDialog(null, "Tidak ada data yang ditampilkan, periksa tanggal cetak");
+            JOptionPane.showMessageDialog(null, "Tidak ada data yang ditampilkan, periksa tanggal cetak atau \n Beban Biaya tidak ditemukan");
         }
         catch(JRException ex) {
             log.error("error generate EmployeeReport", ex);
+        }
+        return null;
+    }
+
+    @Override
+    public JasperPrint getNeracaSaldo(Date dari, Date sampai) {
+        try
+        {
+            List<NeracaSaldoReport> neracaSaldoReports = 
+                    sessionFactory.getCurrentSession()
+                    .createQuery("select (sum(j.debit) - sum(j.kredit)) as debit, (select (sum(ju.kredit) - sum(ju.debit))  from JurnalUmum ju join ju.masterAkun ma where ma.defaultAwal = 'K' and ju.tanggal between :dari and :sampai  ) as kredit from JurnalUmum j join j.masterAkun m where m.defaultAwal = 'D' and j.tanggal between :dari and :sampai")
+                    .setParameter("dari", dari)
+                    .setParameter("sampai", sampai)
+                    .setResultTransformer(
+                     Transformers.aliasToBean(NeracaSaldoReport.class))
+                    .list();
+
+            InputStream is = ReportServiceImpl.class
+                    .getResourceAsStream("/reports/neracasaldo.jasper");
+            
+            Map<String,Object> parameters = new HashMap<String, Object>();
+            
+            List<AkunNeracaSaldo> akunNeracaSaldoReports = 
+                    sessionFactory.getCurrentSession()
+                    .createQuery("select  m.kodeAkun as kodeAkun, m.namaAkun as namaAkun, (SUM(j.debit) - SUM(j.kredit)) as debit, (SUM(j.kredit) - SUM(j.debit)) as kredit, m.defaultAwal as defaultAwal from JurnalUmum j join j.masterAkun m where j.tanggal between :dari and :sampai group by m.kodeAkun")
+                    .setParameter("dari", dari)
+                    .setParameter("sampai", sampai)
+                    .setResultTransformer(
+                     Transformers.aliasToBean(AkunNeracaSaldo.class))
+                    .list();
+            
+            parameters.put("SUBREPORT_AKUN", new JRBeanCollectionDataSource(akunNeracaSaldoReports));
+            parameters.put("dari", dari);
+            parameters.put("sampai", sampai);
+            parameters.put("SUBREPORT_akun_DIR", ReportServiceImpl.class
+                    .getResourceAsStream("/reports/neracasaldo_akun.jasper"));
+            
+            return JasperFillManager.fillReport(is, parameters,
+                    new JRBeanCollectionDataSource(neracaSaldoReports));
+        }
+        catch(PropertyAccessException ex)
+        {
+            log.error("error generate NeracaSaldo", ex);
+            JOptionPane.showMessageDialog(null, "Tidak ada data yang ditampilkan, periksa tanggal cetak atau \n Beban Biaya tidak ditemukan");
+        }
+        catch(JRException ex) {
+            log.error("error generate NeracaSaldo", ex);
         }
         return null;
     }

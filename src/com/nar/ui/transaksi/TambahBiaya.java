@@ -39,19 +39,16 @@ public class TambahBiaya extends javax.swing.JDialog {
     
     private void loadFormToModel()
     {
-        System.out.println(Integer.parseInt(txtTotal.getText()));
-        jurnalUmumBiaya.setDk("D");
         jurnalUmumBiaya.setEmployee(MenuUtama.getEmployee());
         jurnalUmumBiaya.setFaktur(txtFaktur.getText());
         jurnalUmumBiaya.setMasterAkun(listMasterAkun.get(comboBoxBiaya.getSelectedIndex()));
-        jurnalUmumBiaya.setSaldo(Integer.parseInt(txtTotal.getText()));
+        jurnalUmumBiaya.setDebit(Integer.parseInt(txtTotal.getText()));
         jurnalUmumBiaya.setTanggal(jCalendarComboBoxTanggal.getDate());
         
-        jurnalUmumKas.setDk("K");
         jurnalUmumKas.setEmployee(MenuUtama.getEmployee());
         jurnalUmumKas.setFaktur(txtFaktur.getText());
         jurnalUmumKas.setMasterAkun(Main.getMasterAkunService().getMasterAkun("101"));
-        jurnalUmumKas.setSaldo(Integer.parseInt(txtTotal.getText()));
+        jurnalUmumKas.setKredit(Integer.parseInt(txtTotal.getText()));
         jurnalUmumKas.setTanggal(jCalendarComboBoxTanggal.getDate());
     }
     

@@ -18,4 +18,5 @@ public interface ReportService {
     JasperPrint getCustomerReport();
     JasperPrint getEmployeeReport();
     JasperPrint getLabaRugi(Date dari, Date sampai);
+    JasperPrint getNeracaSaldo(Date dari, Date sampai);
 }

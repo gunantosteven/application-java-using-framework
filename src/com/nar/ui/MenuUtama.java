@@ -11,6 +11,7 @@ import com.nar.ui.master.MasterAkunPanel;
 import com.nar.ui.master.SupplierPanel;
 import com.nar.ui.reports.DailyPenjualanReportPanel;
 import com.nar.ui.reports.LabaRugiReportPanel;
+import com.nar.ui.reports.NeracaSaldoReportPanel;
 import com.nar.ui.reports.ReportCustomer;
 import com.nar.ui.reports.ReportEmployee;
 import com.nar.ui.transaksi.FormBiaya;
@@ -306,6 +307,11 @@ public class MenuUtama extends javax.swing.JFrame {
         mnuAkuntasi.add(jMenuItem1);
 
         jMenuItem2.setText("Neraca Saldo");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         mnuAkuntasi.add(jMenuItem2);
 
         jMenu5.add(mnuAkuntasi);
@@ -672,6 +678,28 @@ public class MenuUtama extends javax.swing.JFrame {
             log.error("error ketika menampilkan Report Employee");
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+    
+    private NeracaSaldoReportPanel neracaSaldoReportPanel;
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+            if(neracaSaldoReportPanel == null)
+            {
+                neracaSaldoReportPanel = new NeracaSaldoReportPanel();
+                jDesktopPane1.add(neracaSaldoReportPanel);
+            }
+            else
+                neracaSaldoReportPanel.toFront();
+            neracaSaldoReportPanel.setVisible(true);
+            neracaSaldoReportPanel.setSelected(true);
+            neracaSaldoReportPanel.setSize(jDesktopPane1.getSize());
+        }
+        catch(PropertyVetoException ex)
+        {
+            log.error("error ketika menampilkan Report Employee");
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;

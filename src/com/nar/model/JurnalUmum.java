@@ -39,23 +39,15 @@ public class JurnalUmum implements Serializable {
     @Column(name="FAKTUR")
     private String faktur;
     
-    @Column(name="DK")
-    private String dk;
+    @Column(name="DEBIT")
+    private long debit = 0;
     
-    @Column(name="SALDO")
-    private long saldo;
+    @Column(name="KREDIT")
+    private long kredit = 0;
     
     @ManyToOne
     @JoinColumn(name="EMPLOYEE_PENJUALAN")
     private Employee employee;
-
-    public String getDk() {
-        return dk;
-    }
-
-    public void setDk(String dk) {
-        this.dk = dk;
-    }
 
     public int getId() {
         return id;
@@ -81,12 +73,20 @@ public class JurnalUmum implements Serializable {
         this.faktur = faktur;
     }
 
-    public long getSaldo() {
-        return saldo;
+    public long getDebit() {
+        return debit;
     }
 
-    public void setSaldo(long saldo) {
-        this.saldo = saldo;
+    public void setDebit(long debit) {
+        this.debit = debit;
+    }
+
+    public long getKredit() {
+        return kredit;
+    }
+
+    public void setKredit(long kredit) {
+        this.kredit = kredit;
     }
 
     public Date getTanggal() {
