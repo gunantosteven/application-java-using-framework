@@ -9,14 +9,17 @@ package com.nar.service.impl;
 import com.nar.Main;
 import com.nar.model.DetailPenjualan;
 import com.nar.report.AkunNeracaSaldo;
+import com.nar.report.BarangReport;
 import com.nar.report.BiayaReport;
 import com.nar.report.CustomerReport;
+import com.nar.report.DailyPembelianReport;
 import com.nar.report.DailyPenjualanReport;
 import com.nar.report.EmployeeReport;
 import com.nar.report.LabaRugiReport;
 import com.nar.report.NeracaSaldoReport;
 import com.nar.report.NotaReport;
 import com.nar.report.PendapatanReport;
+import com.nar.report.SupplierReport;
 import com.nar.service.ReportService;
 import java.io.InputStream;
 import java.util.Date;
@@ -222,6 +225,77 @@ public class ReportServiceImpl implements ReportService{
         }
         catch(JRException ex) {
             log.error("error generate NeracaSaldo", ex);
+        }
+        return null;
+    }
+
+    @Override
+    public JasperPrint getBarangReport() {
+        try
+        {
+            List<BarangReport> barangReports = 
+                    sessionFactory.getCurrentSession()
+                    .createQuery("select b.kodeBarang as kodeBarang, b.namaBarang as namaBarang, b.deskripsi as deskripsi, b.satuan as satuan, b.stock as stock from Barang b")
+                    .setResultTransformer(
+                        Transformers.aliasToBean(BarangReport.class))
+                    .list();
+            
+            InputStream is = ReportServiceImpl.class
+                    .getResourceAsStream("/reports/BarangReport.jasper");
+            
+            return JasperFillManager.fillReport(is, null,
+                    new JRBeanCollectionDataSource(barangReports));
+        }
+        catch(JRException ex) {
+            log.error("error generate EmployeeReport", ex);
+        }
+        return null;
+    }
+
+    @Override
+    public JasperPrint getSupplierReport() {
+        try
+        {
+            List<SupplierReport> supplierReports = 
+                    sessionFactory.getCurrentSession()
+                    .createQuery("select s.kodeSupplier as kodeSupplier, s.namaSupplier as namaSupplier, s.alamat as alamat, s.noTelepon as noTelepon from Supplier s")
+                    .setResultTransformer(
+                        Transformers.aliasToBean(SupplierReport.class))
+                    .list();
+            
+            InputStream is = ReportServiceImpl.class
+                    .getResourceAsStream("/reports/SupplierReport.jasper");
+            
+            return JasperFillManager.fillReport(is, null,
+                    new JRBeanCollectionDataSource(supplierReports));
+        }
+        catch(JRException ex) {
+            log.error("error generate EmployeeReport", ex);
+        }
+        return null;
+    }
+
+    @Override
+    public JasperPrint getDailyPembelianReport(Date date) {
+        try{
+            List<DailyPembelianReport> dailyPembelianReports =
+                sessionFactory.getCurrentSession()
+                    .createQuery("select d.barang.kodeBarang as kodeBarang, d.jumlahBarang as jumlahBarang, d.hargaSatuan as hargaSatuan, d.subTotal as subTotal from DetailPembelian d  where day(d.pembelian.tanggalPembelian) = day(:date)")
+                    .setParameter("date", date)
+                    .setResultTransformer(
+                        Transformers.aliasToBean(DailyPembelianReport.class))
+                    .list();
+
+            InputStream is = ReportServiceImpl.class
+                    .getResourceAsStream("/reports/DailyPembelianReport.jasper");
+
+            Map<String,Object> parameters = new HashMap<String, Object>();
+            parameters.put("date", date);
+
+            return JasperFillManager.fillReport(is, parameters, 
+                    new JRBeanCollectionDataSource(dailyPembelianReports));
+        }catch(JRException ex){
+            log.error("error generate DailyPembelianReports", ex);
         }
         return null;
     }

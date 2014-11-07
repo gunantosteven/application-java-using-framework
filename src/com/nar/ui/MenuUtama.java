@@ -3,6 +3,7 @@ package com.nar.ui;
 
 import com.nar.Main;
 import com.nar.model.Employee;
+import com.nar.report.DailyPembelianReport;
 import com.nar.report.DailyPenjualanReport;
 import com.nar.ui.master.BarangPanel;
 import com.nar.ui.master.CustomerPanel;
@@ -12,8 +13,11 @@ import com.nar.ui.master.SupplierPanel;
 import com.nar.ui.reports.DailyPenjualanReportPanel;
 import com.nar.ui.reports.LabaRugiReportPanel;
 import com.nar.ui.reports.NeracaSaldoReportPanel;
-import com.nar.ui.reports.ReportCustomer;
-import com.nar.ui.reports.ReportEmployee;
+import com.nar.ui.reports.BarangReportPanel;
+import com.nar.ui.reports.CustomerReportPanel;
+import com.nar.ui.reports.DailyPembelianReportPanel;
+import com.nar.ui.reports.EmployeeReportPanel;
+import com.nar.ui.reports.SupplierReportPanel;
 import com.nar.ui.transaksi.FormBiaya;
 import com.nar.ui.transaksi.FormJurnalUmum;
 import com.nar.ui.transaksi.FormPembelian;
@@ -126,11 +130,14 @@ public class MenuUtama extends javax.swing.JFrame {
         mnuItemJurnalUmum = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         mnuData = new javax.swing.JMenu();
+        mnuItemBarangReport = new javax.swing.JMenuItem();
         mnuItemEmployeeReport = new javax.swing.JMenuItem();
-        mnuCustomerReport = new javax.swing.JMenuItem();
+        mnuItemCustomerReport = new javax.swing.JMenuItem();
+        mnuItemSupplierReport = new javax.swing.JMenuItem();
         mnuPenjualan = new javax.swing.JMenu();
         mnuItemPenjualanHarian = new javax.swing.JMenuItem();
         mnuPembelian = new javax.swing.JMenu();
+        mnuItemPembelianHarian = new javax.swing.JMenuItem();
         mnuAkuntasi = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -263,6 +270,14 @@ public class MenuUtama extends javax.swing.JFrame {
 
         mnuData.setText("Data");
 
+        mnuItemBarangReport.setText("Barang");
+        mnuItemBarangReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemBarangReportActionPerformed(evt);
+            }
+        });
+        mnuData.add(mnuItemBarangReport);
+
         mnuItemEmployeeReport.setText("Employee");
         mnuItemEmployeeReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,13 +286,21 @@ public class MenuUtama extends javax.swing.JFrame {
         });
         mnuData.add(mnuItemEmployeeReport);
 
-        mnuCustomerReport.setText("Customer");
-        mnuCustomerReport.addActionListener(new java.awt.event.ActionListener() {
+        mnuItemCustomerReport.setText("Customer");
+        mnuItemCustomerReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuCustomerReportActionPerformed(evt);
+                mnuItemCustomerReportActionPerformed(evt);
             }
         });
-        mnuData.add(mnuCustomerReport);
+        mnuData.add(mnuItemCustomerReport);
+
+        mnuItemSupplierReport.setText("Supplier");
+        mnuItemSupplierReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemSupplierReportActionPerformed(evt);
+            }
+        });
+        mnuData.add(mnuItemSupplierReport);
 
         jMenu5.add(mnuData);
 
@@ -294,6 +317,15 @@ public class MenuUtama extends javax.swing.JFrame {
         jMenu5.add(mnuPenjualan);
 
         mnuPembelian.setText("Pembelian");
+
+        mnuItemPembelianHarian.setText("Pembelian Harian");
+        mnuItemPembelianHarian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemPembelianHarianActionPerformed(evt);
+            }
+        });
+        mnuPembelian.add(mnuItemPembelianHarian);
+
         jMenu5.add(mnuPembelian);
 
         mnuAkuntasi.setText("Akuntasi");
@@ -511,14 +543,14 @@ public class MenuUtama extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_mnuItemLogOutActionPerformed
 
-    public ReportCustomer reportCustomer;
-    private void mnuCustomerReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCustomerReportActionPerformed
+    public CustomerReportPanel reportCustomer;
+    private void mnuItemCustomerReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemCustomerReportActionPerformed
         // TODO add your handling code here:
         try
         {
             if(reportCustomer == null)
             {
-                reportCustomer = new ReportCustomer();
+                reportCustomer = new CustomerReportPanel();
                 jDesktopPane1.add(reportCustomer);
             }
             else
@@ -531,16 +563,16 @@ public class MenuUtama extends javax.swing.JFrame {
         {
             log.error("error ketika menampilkan Report Customer");
         }
-    }//GEN-LAST:event_mnuCustomerReportActionPerformed
+    }//GEN-LAST:event_mnuItemCustomerReportActionPerformed
     
-    public ReportEmployee reportEmployee;
+    public EmployeeReportPanel reportEmployee;
     private void mnuItemEmployeeReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemEmployeeReportActionPerformed
         // TODO add your handling code here:
         try
         {
             if(reportEmployee == null)
             {
-                reportEmployee = new ReportEmployee();
+                reportEmployee = new EmployeeReportPanel();
                 jDesktopPane1.add(reportEmployee);
             }
             else
@@ -701,6 +733,73 @@ public class MenuUtama extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private BarangReportPanel reportBarang;
+    private void mnuItemBarangReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemBarangReportActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+            if(reportBarang == null)
+            {
+                reportBarang = new BarangReportPanel();
+                jDesktopPane1.add(reportBarang);
+            }
+            else
+                reportBarang.toFront();
+            reportBarang.setVisible(true);
+            reportBarang.setSelected(true);
+            reportBarang.setSize(jDesktopPane1.getSize());
+        }
+        catch(PropertyVetoException ex)
+        {
+            log.error("error ketika menampilkan Report Barang");
+        }
+    }//GEN-LAST:event_mnuItemBarangReportActionPerformed
+
+    
+    private SupplierReportPanel reportSupplier;
+    private void mnuItemSupplierReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemSupplierReportActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+            if(reportSupplier == null)
+            {
+                reportSupplier = new SupplierReportPanel();
+                jDesktopPane1.add(reportSupplier);
+            }
+            else
+                reportSupplier.toFront();
+            reportSupplier.setVisible(true);
+            reportSupplier.setSelected(true);
+            reportSupplier.setSize(jDesktopPane1.getSize());
+        }
+        catch(PropertyVetoException ex)
+        {
+            log.error("error ketika menampilkan Report Supplier");
+        }
+    }//GEN-LAST:event_mnuItemSupplierReportActionPerformed
+    
+    private DailyPembelianReportPanel dailyPembelianReportPanel;
+    private void mnuItemPembelianHarianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemPembelianHarianActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+            if(dailyPembelianReportPanel == null)
+            {
+                dailyPembelianReportPanel = new DailyPembelianReportPanel();
+                jDesktopPane1.add(dailyPembelianReportPanel);
+            }
+            else
+                dailyPembelianReportPanel.toFront();
+            dailyPembelianReportPanel.setVisible(true);
+            dailyPembelianReportPanel.setSelected(true);
+            dailyPembelianReportPanel.setSize(jDesktopPane1.getSize());
+        }
+        catch(PropertyVetoException ex)
+        {
+            log.error("error ketika menampilkan Daily Pembelian Report Panel");
+        }
+    }//GEN-LAST:event_mnuItemPembelianHarianActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
@@ -714,11 +813,12 @@ public class MenuUtama extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTree jTree1;
     private javax.swing.JMenu mnuAkuntasi;
-    private javax.swing.JMenuItem mnuCustomerReport;
     private javax.swing.JMenu mnuData;
     private javax.swing.JMenuItem mnuItemBarang;
+    private javax.swing.JMenuItem mnuItemBarangReport;
     private javax.swing.JMenuItem mnuItemBiaya;
     private javax.swing.JMenuItem mnuItemCustomer;
+    private javax.swing.JMenuItem mnuItemCustomerReport;
     private javax.swing.JMenuItem mnuItemEmployeeReport;
     private javax.swing.JMenuItem mnuItemJurnalUmum;
     private javax.swing.JMenuItem mnuItemKaryawan;
@@ -726,9 +826,11 @@ public class MenuUtama extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuItemLogOut;
     private javax.swing.JMenuItem mnuItemMasterAkun;
     private javax.swing.JMenuItem mnuItemPembelian;
+    private javax.swing.JMenuItem mnuItemPembelianHarian;
     private javax.swing.JMenuItem mnuItemPenjualan;
     private javax.swing.JMenuItem mnuItemPenjualanHarian;
     private javax.swing.JMenuItem mnuItemSupplier;
+    private javax.swing.JMenuItem mnuItemSupplierReport;
     private javax.swing.JMenu mnuPembelian;
     private javax.swing.JMenu mnuPenjualan;
     // End of variables declaration//GEN-END:variables

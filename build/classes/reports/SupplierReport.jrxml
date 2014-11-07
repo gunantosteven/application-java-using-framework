@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SupplierReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8b3b7bbf-3993-40f0-bbc7-6fc08615ea4f">
+	<property name="ireport.zoom" value="1.2100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="kodeSupplier" class="java.lang.String"/>
+	<field name="namaSupplier" class="java.lang.String"/>
+	<field name="alamat" class="java.lang.String"/>
+	<field name="noTelepon" class="java.lang.String"/>
+	<variable name="SUPPLIER_COUNT" class="java.lang.Long" calculation="Count">
+		<variableExpression><![CDATA[$F{kodeSupplier}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="182" y="0" width="186" height="49" uuid="400c96d9-ef3e-44cb-b46a-ab7efa549ffb"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Laporan Supplier]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="eb291b9c-94ee-40cb-930d-e5de07e6399c"/>
+				<text><![CDATA[Kode Supplier]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="0" width="146" height="20" uuid="ab433236-1fc8-444b-86b4-719a167d2cfe"/>
+				<text><![CDATA[Nama Supplier]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="0" width="147" height="20" uuid="69939ed9-ac65-4ca9-b3a8-7587f36ca0a9"/>
+				<text><![CDATA[Alamat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="2" width="118" height="20" uuid="0eb892c1-a12e-4c04-b904-337c431a16e6"/>
+				<text><![CDATA[No Telepon]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="20" width="554" height="1" uuid="ac0e8abc-58d4-4326-b988-894e704265ce"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="8e7f81d7-264d-4e5a-bb53-b7a093bdfb3c"/>
+				<textFieldExpression><![CDATA[$F{kodeSupplier}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="0" width="146" height="20" uuid="ee4025fa-3291-4c9c-ac35-23eff19dac6e"/>
+				<textFieldExpression><![CDATA[$F{namaSupplier}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="269" y="0" width="147" height="20" uuid="67c63559-0230-4455-9ac6-49d396daaf4b"/>
+				<textFieldExpression><![CDATA[$F{alamat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="0" width="118" height="20" uuid="baefc20a-200e-4a9b-9236-4272b17fca54"/>
+				<textFieldExpression><![CDATA[$F{noTelepon}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="218" y="0" width="100" height="20" uuid="aba1d08e-4213-40b2-a5e7-a82c3958f02d"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="74" height="20" uuid="a39817cb-3f2a-4db2-82d9-ca0d6892c160"/>
+				<text><![CDATA[Total Supplier]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="75" y="0" width="100" height="20" uuid="999999fc-5a4e-462c-bd98-f7f22c3a897f"/>
+				<textFieldExpression><![CDATA[$V{SUPPLIER_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

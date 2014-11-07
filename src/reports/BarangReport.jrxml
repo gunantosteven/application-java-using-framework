@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BarangReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e329e0bc-f133-478d-abbe-4512bd4d7895">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="kodeBarang" class="java.lang.String"/>
+	<field name="namaBarang" class="java.lang.String"/>
+	<field name="deskripsi" class="java.lang.String"/>
+	<field name="satuan" class="java.lang.String"/>
+	<field name="stock" class="java.lang.Long"/>
+	<variable name="BARANG_COUNT" class="java.lang.Long" incrementType="Report" calculation="Count">
+		<variableExpression><![CDATA[$F{kodeBarang}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="206" y="0" width="163" height="49" uuid="3cf75c88-acc0-400f-aa2b-aad9a6a0e3de"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Laporan Barang]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="20f679ec-5c2e-4779-8f8f-3b3496db84c5"/>
+				<text><![CDATA[Kode Barang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="0" width="139" height="20" uuid="533ff262-d622-406b-be57-fa23ac5f243d"/>
+				<text><![CDATA[Nama Barang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="0" width="100" height="20" uuid="c7447f2c-343e-4997-94cf-5a18c52abbcf"/>
+				<text><![CDATA[Deskripsi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="0" width="79" height="20" uuid="a4efd96b-80c2-4529-8904-8339ac03f46a"/>
+				<text><![CDATA[Satuan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="20" uuid="bde1d23b-ef5c-4f86-87c0-ca68a917ec2a"/>
+				<text><![CDATA[Stock]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="21" width="555" height="1" uuid="6e733f96-44da-44a4-bdb6-114713bd9b25"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="6a18d2ec-c14a-457c-b778-63cf95337d88"/>
+				<textFieldExpression><![CDATA[$F{kodeBarang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="139" height="20" uuid="7fe7ea99-fdf1-4ea9-92ea-4ca75921c4d5"/>
+				<textFieldExpression><![CDATA[$F{namaBarang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="0" width="100" height="20" uuid="43b20f8e-7cee-4825-b29a-00922333fafb"/>
+				<textFieldExpression><![CDATA[$F{deskripsi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="0" width="79" height="20" uuid="bb9d1c45-6b32-49eb-897f-dd0709c9d8b7"/>
+				<textFieldExpression><![CDATA[$F{satuan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="2c3b925e-46e3-4018-93fd-a450d757dda6"/>
+				<textFieldExpression><![CDATA[$F{stock}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="224" y="0" width="100" height="20" uuid="76a85d54-6ed1-4c09-a9a6-1fecd2ece960"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="55" height="20" uuid="4e873fed-b200-4a56-a356-5ab7b4db8ab0"/>
+				<text><![CDATA[Total Item]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="55" y="0" width="100" height="20" uuid="90e0f622-dfd4-4295-a713-f2652970a4a4"/>
+				<textFieldExpression><![CDATA[$V{BARANG_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

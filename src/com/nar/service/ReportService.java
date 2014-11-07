@@ -15,8 +15,11 @@ import net.sf.jasperreports.engine.JasperPrint;
 public interface ReportService {
 
     JasperPrint getDailyPenjualanReport(Date date);
+    JasperPrint getDailyPembelianReport(Date date);
+    JasperPrint getBarangReport();
     JasperPrint getCustomerReport();
     JasperPrint getEmployeeReport();
+    JasperPrint getSupplierReport();
     JasperPrint getLabaRugi(Date dari, Date sampai);
     JasperPrint getNeracaSaldo(Date dari, Date sampai);
 }
