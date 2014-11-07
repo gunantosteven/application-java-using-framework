@@ -8,3 +8,9 @@ Update 03/11/2014
 
 -Add Laba / Rugi
 -Making program more efficient and usable
+
+Update 07/11/2014
+
+-Tambah Laporan Barang
+-Tambah Laporan Supplier
+-Tambah Laporan pembelian harian
