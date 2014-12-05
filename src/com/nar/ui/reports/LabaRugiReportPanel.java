@@ -34,9 +34,7 @@ public class LabaRugiReportPanel extends javax.swing.JInternalFrame {
 
         pnlReport = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        calendarComboBoxMulai = new de.wannawork.jcalendar.JCalendarComboBox();
-        jLabel2 = new javax.swing.JLabel();
-        calendarComboBoxSampai = new de.wannawork.jcalendar.JCalendarComboBox();
+        calendarComboBoxTgl = new de.wannawork.jcalendar.JCalendarComboBox();
         btnCetak = new javax.swing.JButton();
 
         setClosable(true);
@@ -45,9 +43,7 @@ public class LabaRugiReportPanel extends javax.swing.JInternalFrame {
 
         pnlReport.setLayout(new java.awt.BorderLayout());
 
-        jLabel1.setText("Mulai Tanggal");
-
-        jLabel2.setText("S/D");
+        jLabel1.setText("Per Tanggal");
 
         btnCetak.setText("Cetak");
         btnCetak.addActionListener(new java.awt.event.ActionListener() {
@@ -65,14 +61,10 @@ public class LabaRugiReportPanel extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(calendarComboBoxMulai, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(calendarComboBoxSampai, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(calendarComboBoxTgl, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCetak)
-                .addContainerGap(453, Short.MAX_VALUE))
+                .addContainerGap(616, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,12 +72,10 @@ public class LabaRugiReportPanel extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(calendarComboBoxMulai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(calendarComboBoxSampai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(calendarComboBoxTgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCetak))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlReport, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addComponent(pnlReport, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE))
         );
 
         pack();
@@ -93,7 +83,7 @@ public class LabaRugiReportPanel extends javax.swing.JInternalFrame {
 
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
         // TODO add your handling code here:
-        JasperPrint print = Main.getReportService().getLabaRugi(calendarComboBoxMulai.getDate(), calendarComboBoxSampai.getDate());
+        JasperPrint print = Main.getReportService().getLabaRugi(calendarComboBoxTgl.getDate());
         JRViewer viewer = new JRViewer(print);
         pnlReport.removeAll();
         pnlReport.add(viewer,BorderLayout.CENTER);
@@ -103,10 +93,8 @@ public class LabaRugiReportPanel extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCetak;
-    private de.wannawork.jcalendar.JCalendarComboBox calendarComboBoxMulai;
-    private de.wannawork.jcalendar.JCalendarComboBox calendarComboBoxSampai;
+    private de.wannawork.jcalendar.JCalendarComboBox calendarComboBoxTgl;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel pnlReport;
     // End of variables declaration//GEN-END:variables
 }

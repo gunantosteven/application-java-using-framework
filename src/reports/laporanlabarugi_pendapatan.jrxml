@@ -25,7 +25,7 @@ INNER JOIN t_barang b ON dp.BARANG_ID = b.KODE_BARANG]]>
 		<band height="21" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="100" height="20" uuid="1ef4837a-e7b0-4c08-971e-dce6356105b6"/>
-				<text><![CDATA[Pendapatan]]></text>
+				<text><![CDATA[Laba Kotor]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="288" y="0" width="100" height="20" uuid="8cb8c0cb-c692-4a9a-8ac9-a14d45f23512"/>

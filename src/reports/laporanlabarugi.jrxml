@@ -8,8 +8,7 @@
 	</parameter>
 	<parameter name="subreport_pendapatan" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="subreport_biaya" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
-	<parameter name="dari" class="java.util.Date"/>
-	<parameter name="sampai" class="java.util.Date"/>
+	<parameter name="tgl" class="java.util.Date"/>
 	<parameter name="SUBREPORT_pendapatan_DIR" class="java.io.InputStream"/>
 	<parameter name="SUBREPORT_biaya_DIR" class="java.io.InputStream"/>
 	<queryString>
@@ -26,14 +25,28 @@ INNER JOIN t_barang b ON dp.BARANG_ID = b.KODE_BARANG]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="45" splitType="Stretch">
+		<band height="97" splitType="Stretch">
 			<staticText>
-				<reportElement x="158" y="0" width="265" height="43" uuid="0f7981f7-e35c-498d-b230-bfadb4cd0802"/>
-				<textElement>
-					<font size="30"/>
+				<reportElement x="109" y="0" width="356" height="62" uuid="870f947f-a939-4b67-b0a4-8a99d1dc758b"/>
+				<textElement textAlignment="Center">
+					<font size="24" isStrikeThrough="false"/>
 				</textElement>
-				<text><![CDATA[Laporan Laba Rugi]]></text>
+				<text><![CDATA["PT NAR STAINLESS STEEL"  Laporan Laba Rugi]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="109" y="62" width="86" height="35" uuid="cd070115-eec8-4e05-a969-b3cc9c172673"/>
+				<textElement textAlignment="Center">
+					<font size="24" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Per]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="195" y="62" width="270" height="35" uuid="24cad0df-89d3-45ab-96b3-9577832e53ad"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tgl}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -63,7 +76,7 @@ INNER JOIN t_barang b ON dp.BARANG_ID = b.KODE_BARANG]]>
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="64" splitType="Stretch">
+		<band height="41" splitType="Stretch">
 			<textField>
 				<reportElement x="290" y="0" width="100" height="20" uuid="101f9e1a-56e7-4661-8c79-1568053cdc71"/>
 				<textFieldExpression><![CDATA[$F{pendapatan}]]></textFieldExpression>
@@ -83,22 +96,6 @@ INNER JOIN t_barang b ON dp.BARANG_ID = b.KODE_BARANG]]>
 			<line>
 				<reportElement x="1" y="0" width="554" height="1" uuid="a257c447-046d-40ce-be9d-04762ed6776e"/>
 			</line>
-			<staticText>
-				<reportElement x="1" y="44" width="72" height="20" uuid="7824f717-44eb-432c-a56d-54c9830d0e4e"/>
-				<text><![CDATA[Mulai tanggal]]></text>
-			</staticText>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="73" y="44" width="73" height="20" uuid="f378fcca-541b-4494-b835-a505f43576c1"/>
-				<textFieldExpression><![CDATA[$P{dari}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="146" y="44" width="23" height="20" uuid="51bd9d0c-47a2-4081-a71f-7d3e0fc3b9ca"/>
-				<text><![CDATA[S/D]]></text>
-			</staticText>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="169" y="44" width="77" height="20" uuid="b74a3a76-691b-432c-ae36-57f9d39e3e26"/>
-				<textFieldExpression><![CDATA[$P{sampai}]]></textFieldExpression>
-			</textField>
 		</band>
 	</summary>
 </jasperReport>

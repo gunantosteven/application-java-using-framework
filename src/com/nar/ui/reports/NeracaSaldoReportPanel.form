@@ -6,9 +6,6 @@
     <Property name="defaultCloseOperation" type="int" value="1"/>
     <Property name="title" type="java.lang.String" value="Laporan Neraca Saldo"/>
   </Properties>
-  <AccessibilityProperties>
-    <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Laporan Neraca Saldo"/>
-  </AccessibilityProperties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
@@ -32,14 +29,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="calendarComboBoxMulai" min="-2" pref="137" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="calendarComboBoxSampai" min="-2" pref="124" max="-2" attributes="0"/>
+              <Component id="calendarComboBoxTgl" min="-2" pref="137" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCetak" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="453" max="32767" attributes="0"/>
+              <EmptySpace pref="616" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -49,13 +42,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="calendarComboBoxMulai" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <Component id="calendarComboBoxSampai" min="-2" max="-2" attributes="0"/>
+                  <Component id="calendarComboBoxTgl" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCetak" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="pnlReport" pref="388" max="32767" attributes="0"/>
+              <Component id="pnlReport" pref="392" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -67,17 +58,10 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Mulai Tanggal"/>
+        <Property name="text" type="java.lang.String" value="Per Tanggal"/>
       </Properties>
     </Component>
-    <Component class="de.wannawork.jcalendar.JCalendarComboBox" name="calendarComboBoxMulai">
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="S/D"/>
-      </Properties>
-    </Component>
-    <Component class="de.wannawork.jcalendar.JCalendarComboBox" name="calendarComboBoxSampai">
+    <Component class="de.wannawork.jcalendar.JCalendarComboBox" name="calendarComboBoxTgl">
     </Component>
     <Component class="javax.swing.JButton" name="btnCetak">
       <Properties>

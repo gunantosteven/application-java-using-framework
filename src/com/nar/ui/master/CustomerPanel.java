@@ -8,6 +8,7 @@ import com.nar.Main;
 import com.nar.model.Customer;
 import com.nar.util.ComponentUtils;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -123,13 +124,35 @@ public class CustomerPanel extends javax.swing.JInternalFrame {
            txtNama.getText().length() > 0 &&
            txtNip.getText().length() > 0 &&
            txtNoTelp.getText().length() > 0)
-            return true;
+        {
+            if(!Pattern.compile("[A-Z|a-z]+").matcher(txtNama.getText().subSequence(0, txtNama.getText().length())).matches())
+            {
+                JOptionPane.showMessageDialog(null, "Nama Mengandung Angka","WARNING",WIDTH);
+                return false;
+            }
+            
+            try
+            {
+                Integer.parseInt(txtNoTelp.getText());
+                if(Integer.parseInt(txtNoTelp.getText())<0)
+                {
+                    JOptionPane.showMessageDialog(null, "Error Nomor Telepon tidak boleh negatif","WARNING",WIDTH);
+                    return false;
+                }
+            }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,"Error harus angka !!! " ,"WARNING" , WIDTH);
+                return false;
+            }    
+        }
         else
         {
             JOptionPane.showMessageDialog(null,
                     "Isi semua field!","Error",JOptionPane.ERROR_MESSAGE);
             return false;
         }
+        return true;
     }
     
     private void clearForm()

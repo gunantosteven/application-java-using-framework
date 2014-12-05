@@ -7,7 +7,9 @@ package com.nar.ui.master;
 import com.nar.Main;
 import com.nar.model.Supplier;
 import com.nar.util.ComponentUtils;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -122,14 +124,26 @@ public class SupplierPanel extends javax.swing.JInternalFrame {
         && txtNamaSupplier.getText().length() > 0
         && txtAlamat.getText().length() > 0
         && txtNoTelepon.getText().length() > 0)
-            return true;
+        {
+            if(!Pattern.compile("[A-Z|a-z]+").matcher(txtNamaSupplier.getText().subSequence(0, txtNamaSupplier.getText().length())).matches())
+            {
+                JOptionPane.showMessageDialog(null, "Nama Mengandung Angka","WARNING",WIDTH);
+                return false;
+            }
+            
+            if(!Pattern.compile("[0-9]+").matcher(txtNoTelepon.getText().subSequence(0, txtNoTelepon.getText().length())).matches())
+            {
+                JOptionPane.showMessageDialog(null, "No Telepon Harus Angka","WARNING",WIDTH);
+                return false;
+            }
+        }
         else
         {
             JOptionPane.showMessageDialog(null,
                     "Isi semua field!","Error",JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        
+        return true;
     }
     
     private void clearForm()

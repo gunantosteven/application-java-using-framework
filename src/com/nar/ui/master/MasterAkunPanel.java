@@ -154,7 +154,7 @@ public class MasterAkunPanel extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Nomer Akun");
 
-        jLabel2.setText("Nama AKun");
+        jLabel2.setText("Nama Akun");
 
         tableMasterAkun.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -1,11 +1,16 @@
 http://stevengunanto.blogspot.com/2014/07/application-example-using-framework.html#more
 
-Application using Netbeans 7.2 and database MySQL
+Application using Netbeans 8.0.1 and database MySQL
 
 create database nar_stainless_steel and import "nar_stainless_steel.sql"
 
-Update 11/10/2014
+Update 03/11/2014
 
--Add sales
--Add Accounting
+-Add Laba / Rugi
 -Making program more efficient and usable
+
+Update 07/11/2014
+
+-Tambah Laporan Barang
+-Tambah Laporan Supplier
+-Tambah Laporan pembelian harian

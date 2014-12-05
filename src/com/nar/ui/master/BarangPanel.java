@@ -135,16 +135,63 @@ public class BarangPanel extends javax.swing.JInternalFrame {
         && txtNamaBarang.getText().length() > 0
         && txtDeskripsi.getText().length() > 0
         && txtHargaBeli.getText().length() > 0
-        && txtHargaJual.getText().length() > 0 
+        && txtHargaJual.getText().length()> 0 
         && txtJumlahBarang.getText().length() > 0
         && txtSatuan.getText().length() > 0)
-            return true;
+        
+        { 
+            try
+            {
+                Integer.parseInt(txtJumlahBarang.getText());
+                if(Integer.parseInt(txtJumlahBarang.getText())<0)
+                {
+                    JOptionPane.showMessageDialog(null, "Error Jumlah Barang tidak boleh negatif");
+                    return false;
+                }
+            }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,"Error Jumlah Barang harus angka  !!! " ,"Warning" , WIDTH);
+                return false;
+            }
+            
+            try
+            {
+                Integer.parseInt(txtHargaBeli.getText());
+                if(Integer.parseInt(txtHargaBeli.getText())<0)
+                {
+                    JOptionPane.showMessageDialog(null, "Error Harga Beli tidak boleh negatif");
+                    return false;
+                }
+            }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,"Error Harga Beli harus angka !!! " ,"Warning" , WIDTH);
+                return false;
+            }
+            
+            try
+            {
+                Integer.parseInt(txtHargaJual.getText());
+                if(Integer.parseInt(txtHargaJual.getText())<0)
+                {
+                    JOptionPane.showMessageDialog(null, "Error Harga Jual tidak boleh negatif");
+                    return false;
+                }
+            }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,"Error Harga Jual harus angka !!! " ,"Warning" , WIDTH);
+                return false;
+            }    
+        }
         else
         {
             JOptionPane.showMessageDialog(null,
                     "Isi semua field!","Error",JOptionPane.ERROR_MESSAGE);
             return false;
         }
+        return true;
         
     }
     

@@ -8,6 +8,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_akun_DIR" class="java.io.InputStream"/>
+	<parameter name="tgl" class="java.util.Date"/>
 	<queryString>
 		<![CDATA[SELECT (SUM(DEBIT) - SUM(KREDIT)) as debit, (SELECT (SUM(KREDIT) - SUM(DEBIT)) from T_JURNALUMUM j inner join T_MASTERAKUN m on j.JURNALUMUM_MASTERAKUN = m.KODE_AKUN where m.DEFAULT_AWAL = 'K') as kredit from T_JURNALUMUM j inner join T_MASTERAKUN m on j.JURNALUMUM_MASTERAKUN = m.KODE_AKUN where m.DEFAULT_AWAL = 'D']]>
 	</queryString>
@@ -17,14 +18,28 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="63" splitType="Stretch">
+		<band height="97" splitType="Stretch">
 			<staticText>
-				<reportElement x="99" y="0" width="370" height="62" uuid="ca2d7d75-a860-4908-a393-e4b03533661a"/>
-				<textElement>
-					<font size="36"/>
+				<reportElement x="99" y="0" width="356" height="62" uuid="ca2d7d75-a860-4908-a393-e4b03533661a"/>
+				<textElement textAlignment="Center">
+					<font size="24" isStrikeThrough="false"/>
 				</textElement>
-				<text><![CDATA[Laporan Neraca Saldo]]></text>
+				<text><![CDATA["PT NAR STAINLESS STEEL"  Neraca Saldo]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="99" y="62" width="86" height="35" uuid="a2fd4fe1-6853-4201-972b-03be1a6855b3"/>
+				<textElement textAlignment="Center">
+					<font size="24" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Per]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="185" y="62" width="270" height="35" uuid="49a7b24c-44ea-48ff-845f-fcdaf8fa36ed"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tgl}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

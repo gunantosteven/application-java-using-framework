@@ -5,6 +5,8 @@
  */
 package com.nar.report;
 
+import java.util.Date;
+
 /**
  *
  * @author gunanto

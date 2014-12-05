@@ -111,7 +111,7 @@ public class GenerateTables
         Supplier s = new Supplier();
         s.setKodeSupplier("s001");
         s.setNamaSupplier("Jonathan");
-        s.setNoTelepon("031-3333333");
+        s.setNoTelepon("3333333");
         s.setAlamat("embong malang");
         
         supplierService.save(s);

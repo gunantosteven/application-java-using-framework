@@ -9,9 +9,11 @@ import com.nar.model.Employee;
 import com.nar.model.Jabatan;
 import com.nar.model.JenisKelamin;
 import com.nar.util.ComponentUtils;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -166,13 +168,20 @@ public class EmployeePanel extends javax.swing.JInternalFrame {
            txtPassword.getText().length() > 0 &&
            txtTempatLahir.getText().length() > 0 &&
            txtUsername.getText().length() > 0)
-            return true;
+        {
+            if(!Pattern.compile("[A-Z|a-z]+").matcher(txtNama.getText().subSequence(0, txtNama.getText().length())).matches())
+            {
+                JOptionPane.showMessageDialog(null, "Nama Mengandung Angka","WARNING",WIDTH);
+                return false;
+            }
+        }
         else
         {
             JOptionPane.showMessageDialog(null,
                     "Isi semua field!","Error",JOptionPane.ERROR_MESSAGE);
             return false;
         }
+        return true;
     }
     
     private void clearForm()

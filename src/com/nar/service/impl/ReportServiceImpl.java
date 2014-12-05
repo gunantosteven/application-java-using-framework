@@ -54,7 +54,7 @@ public class ReportServiceImpl implements ReportService{
         try{
             List<DailyPenjualanReport> dailyPenjualanReports =
                 sessionFactory.getCurrentSession()
-                    .createQuery("select d.barang.kodeBarang as kodeBarang, d.jumlahBarang as jumlahBarang, d.hargaSatuan as hargaSatuan, d.subTotal as subTotal from DetailPenjualan d  where day(d.penjualan.tanggalPenjualan) = day(:date)")
+                    .createQuery("select d.barang.kodeBarang as kodeBarang, d.jumlahBarang as jumlahBarang, d.hargaSatuan as hargaSatuan, d.hargaSatuan * d.jumlahBarang as subTotal from DetailPenjualan d  where day(d.penjualan.tanggalPenjualan) = day(:date)")
                     .setParameter("date", date)
                     .setResultTransformer(
                         Transformers.aliasToBean(DailyPenjualanReport.class))
@@ -121,16 +121,15 @@ public class ReportServiceImpl implements ReportService{
     }
 
     @Override
-    public JasperPrint getLabaRugi(Date dari, Date sampai) {
+    public JasperPrint getLabaRugi(Date tgl) {
         try
         {
             List<LabaRugiReport> labaRugiReports = 
                     sessionFactory.getCurrentSession()
                     .createQuery("select sum( dp.jumlahBarang * (dp.hargaSatuan - b.hargaBeli)) as pendapatan, "
-                            + "(select SUM(j.debit) from JurnalUmum j join j.masterAkun m where m.kodeAkun like '6%' and j.tanggal between :dari and :sampai) as biaya "
-                            + "from DetailPenjualan dp join dp.barang b join dp.penjualan p where p.tanggalPenjualan between :dari and :sampai")
-                    .setParameter("dari", dari)
-                    .setParameter("sampai", sampai)
+                            + "(select SUM(j.debit) from JurnalUmum j join j.masterAkun m where m.kodeAkun like '6%' and j.tanggal = :tgl) as biaya "
+                            + "from DetailPenjualan dp join dp.barang b join dp.penjualan p where p.tanggalPenjualan = :tgl")
+                    .setParameter("tgl", tgl)
                     .setResultTransformer(
                     Transformers.aliasToBean(LabaRugiReport.class))
                     .list();
@@ -143,26 +142,23 @@ public class ReportServiceImpl implements ReportService{
             
             List<PendapatanReport> pendapatanReports = 
                     sessionFactory.getCurrentSession()
-                    .createQuery("select sum( dp.jumlahBarang * (dp.hargaSatuan - b.hargaBeli)) as pendapatan from DetailPenjualan dp join dp.barang b join dp.penjualan p where p.tanggalPenjualan between :dari and :sampai")
-                    .setParameter("dari", dari)
-                    .setParameter("sampai", sampai)
+                    .createQuery("select sum( dp.jumlahBarang * (dp.hargaSatuan - b.hargaBeli)) as pendapatan from DetailPenjualan dp join dp.barang b join dp.penjualan p where p.tanggalPenjualan = :tgl")
+                    .setParameter("tgl", tgl)
                     .setResultTransformer(
                     Transformers.aliasToBean(PendapatanReport.class))
                     .list();
                    
             List<BiayaReport> biayaReports = 
                     sessionFactory.getCurrentSession()
-                    .createQuery("select m.namaAkun as namaAkun, sum(j.debit) as saldo from JurnalUmum j join j.masterAkun m where m.kodeAkun like '6%' and j.tanggal between :dari and :sampai group by m.kodeAkun")
-                    .setParameter("dari", dari)
-                    .setParameter("sampai", sampai)
+                    .createQuery("select m.namaAkun as namaAkun, sum(j.debit) as saldo from JurnalUmum j join j.masterAkun m where m.kodeAkun like '6%' and j.tanggal = :tgl group by m.kodeAkun")
+                    .setParameter("tgl", tgl)
                     .setResultTransformer(
                     Transformers.aliasToBean(BiayaReport.class))
                     .list();
             
             parameters.put("subreport_pendapatan", new JRBeanCollectionDataSource(pendapatanReports));
             parameters.put("subreport_biaya", new JRBeanCollectionDataSource(biayaReports));
-            parameters.put("dari", dari);
-            parameters.put("sampai", sampai);
+            parameters.put("tgl", tgl);
             parameters.put("SUBREPORT_pendapatan_DIR", ReportServiceImpl.class
                     .getResourceAsStream("/reports/laporanlabarugi_pendapatan.jasper"));
             parameters.put("SUBREPORT_biaya_DIR", ReportServiceImpl.class
@@ -183,14 +179,13 @@ public class ReportServiceImpl implements ReportService{
     }
 
     @Override
-    public JasperPrint getNeracaSaldo(Date dari, Date sampai) {
+    public JasperPrint getNeracaSaldo(Date tgl) {
         try
         {
             List<NeracaSaldoReport> neracaSaldoReports = 
                     sessionFactory.getCurrentSession()
-                    .createQuery("select (sum(j.debit) - sum(j.kredit)) as debit, (select (sum(ju.kredit) - sum(ju.debit))  from JurnalUmum ju join ju.masterAkun ma where ma.defaultAwal = 'K' and ju.tanggal between :dari and :sampai  ) as kredit from JurnalUmum j join j.masterAkun m where m.defaultAwal = 'D' and j.tanggal between :dari and :sampai")
-                    .setParameter("dari", dari)
-                    .setParameter("sampai", sampai)
+                    .createQuery("select (sum(j.debit) - sum(j.kredit)) as debit, (select (sum(ju.kredit) - sum(ju.debit))  from JurnalUmum ju join ju.masterAkun ma where ma.defaultAwal = 'K' and ju.tanggal = :tgl ) as kredit from JurnalUmum j join j.masterAkun m where m.defaultAwal = 'D' and j.tanggal = :tgl")
+                    .setParameter("tgl", tgl)
                     .setResultTransformer(
                      Transformers.aliasToBean(NeracaSaldoReport.class))
                     .list();
@@ -202,16 +197,14 @@ public class ReportServiceImpl implements ReportService{
             
             List<AkunNeracaSaldo> akunNeracaSaldoReports = 
                     sessionFactory.getCurrentSession()
-                    .createQuery("select  m.kodeAkun as kodeAkun, m.namaAkun as namaAkun, (SUM(j.debit) - SUM(j.kredit)) as debit, (SUM(j.kredit) - SUM(j.debit)) as kredit, m.defaultAwal as defaultAwal from JurnalUmum j join j.masterAkun m where j.tanggal between :dari and :sampai group by m.kodeAkun")
-                    .setParameter("dari", dari)
-                    .setParameter("sampai", sampai)
+                    .createQuery("select  m.kodeAkun as kodeAkun, m.namaAkun as namaAkun, (SUM(j.debit) - SUM(j.kredit)) as debit, (SUM(j.kredit) - SUM(j.debit)) as kredit, m.defaultAwal as defaultAwal from JurnalUmum j join j.masterAkun m where j.tanggal = :tgl group by m.kodeAkun")
+                    .setParameter("tgl", tgl)
                     .setResultTransformer(
                      Transformers.aliasToBean(AkunNeracaSaldo.class))
                     .list();
             
             parameters.put("SUBREPORT_AKUN", new JRBeanCollectionDataSource(akunNeracaSaldoReports));
-            parameters.put("dari", dari);
-            parameters.put("sampai", sampai);
+            parameters.put("tgl", tgl);
             parameters.put("SUBREPORT_akun_DIR", ReportServiceImpl.class
                     .getResourceAsStream("/reports/neracasaldo_akun.jasper"));
             
