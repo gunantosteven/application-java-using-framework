@@ -14,3 +14,8 @@ Update 07/11/2014
 -Tambah Laporan Barang
 -Tambah Laporan Supplier
 -Tambah Laporan pembelian harian
+
+Update 05/12/2014
+
+-Optimasi Validasi bagian Master
+-Pembenaran Report laporan neraca dan laba rugi
