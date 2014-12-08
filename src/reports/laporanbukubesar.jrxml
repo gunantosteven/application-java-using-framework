@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="laporanbukubesar" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58a1407e-bd2d-499e-8940-2d16b2d18071">
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dari" class="java.util.Date"/>
+	<parameter name="sampai" class="java.util.Date"/>
+	<field name="kredit" class="java.lang.Long"/>
+	<field name="debit" class="java.lang.Long"/>
+	<field name="faktur" class="java.lang.String"/>
+	<field name="tanggal" class="java.util.Date"/>
+	<field name="namaakun" class="java.lang.String"/>
+	<field name="operator" class="java.lang.String"/>
+	<variable name="ROW_COUNT" class="java.lang.Long" resetType="Group" resetGroup="akun" incrementType="Group" incrementGroup="akun" calculation="Count"/>
+	<variable name="SUM_MASUK" class="java.lang.Long" resetType="Group" resetGroup="akun" calculation="Sum">
+		<variableExpression><![CDATA[$F{debit}]]></variableExpression>
+	</variable>
+	<variable name="SUM_KELUAR" class="java.lang.Long" resetType="Group" resetGroup="akun" calculation="Sum">
+		<variableExpression><![CDATA[$F{kredit}]]></variableExpression>
+	</variable>
+	<group name="akun">
+		<groupExpression><![CDATA[$F{namaakun}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="20" uuid="525d1beb-a612-485c-8064-c9f5e9a54e13"/>
+					<text><![CDATA[Akun]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="100" y="0" width="229" height="20" uuid="7eb6245e-0e56-4e74-ac47-d4ed74a6c546"/>
+					<textFieldExpression><![CDATA[$F{namaakun}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="20" width="100" height="20" uuid="8b52c437-39be-449a-bfe2-96e4198d8f20"/>
+					<text><![CDATA[Tanggal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="108" y="20" width="114" height="20" uuid="d5f65f41-3470-462c-9d16-34c6ba51a824"/>
+					<text><![CDATA[Faktur]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="229" y="20" width="100" height="20" uuid="dc0f4a56-b555-4641-b606-f91c1e8b2fba"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Masuk]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="340" y="20" width="100" height="20" uuid="b9e6cd2e-dfe6-4565-997f-08bb714e5868"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Kredit]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="455" y="20" width="100" height="20" uuid="d0f5cde3-9ed4-44fb-95e8-e5c300d362b0"/>
+					<text><![CDATA[Operator]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="39" width="555" height="1" uuid="2e54d893-b1de-4d84-88ab-3ea4def9296f"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<line>
+					<reportElement x="229" y="0" width="100" height="1" uuid="5364f587-68bf-4ce0-af11-3e30cf741464"/>
+				</line>
+				<line>
+					<reportElement x="340" y="0" width="100" height="1" uuid="447b233a-6ba6-4342-9114-4e5f350a75c2"/>
+				</line>
+				<textField pattern="#,##0;(#,##0)">
+					<reportElement x="229" y="1" width="100" height="20" uuid="d060ef4a-6b03-4ba5-a09a-d25f5cd461e2"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{SUM_MASUK}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;(#,##0)">
+					<reportElement x="340" y="1" width="100" height="20" uuid="040a7b00-f0fe-4d13-82db-274efb6d1c92"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$V{SUM_KELUAR}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="97" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="62" width="86" height="35" uuid="b727a6f6-a8b4-4f56-bd9b-fde080f6c31d"/>
+				<textElement textAlignment="Center">
+					<font size="18" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Dari]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="0" width="356" height="62" uuid="34f037c7-d58c-442c-a64c-86d6e90bee54"/>
+				<textElement textAlignment="Center">
+					<font size="24" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA["PT NAR STAINLESS STEEL"  Laporan Buku Besar]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="86" y="62" width="186" height="35" uuid="d2d24ac3-a11d-431e-87e1-7518fd995ccd"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dari}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="272" y="62" width="86" height="35" uuid="c476ac1f-44c9-47a5-9df8-05caa9a7c94c"/>
+				<textElement textAlignment="Center">
+					<font size="18" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Sampai]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="358" y="62" width="197" height="35" uuid="482e36d2-994d-4605-bf0d-bc260d7c4cc4"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sampai}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="100" height="20" uuid="8d28f22c-296e-4635-8547-388895d6d9cd"/>
+				<textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="108" y="0" width="114" height="20" uuid="a97a0f63-5703-436f-bba1-768ed609e952"/>
+				<textFieldExpression><![CDATA[$F{faktur}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;(#,##0)">
+				<reportElement x="229" y="0" width="100" height="20" uuid="f79ac47d-5892-40f2-99f1-3756cbb32926"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{debit}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;(#,##0)">
+				<reportElement x="340" y="0" width="100" height="20" uuid="3ce192bb-2f07-4d85-902f-c7225ed51426"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{kredit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="55246908-c6af-4325-a11c-67a7501d3ef9"/>
+				<textFieldExpression><![CDATA[$F{operator}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="211" y="0" width="100" height="20" uuid="7a3193b2-0633-49b6-84ca-3657b922c143"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

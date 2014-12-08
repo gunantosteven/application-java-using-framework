@@ -9,8 +9,10 @@ package com.nar.service.impl;
 import com.nar.Main;
 import com.nar.model.DetailPenjualan;
 import com.nar.report.AkunNeracaSaldo;
+import com.nar.report.ArusKasReport;
 import com.nar.report.BarangReport;
 import com.nar.report.BiayaReport;
+import com.nar.report.BukuBesarReport;
 import com.nar.report.CustomerReport;
 import com.nar.report.DailyPembelianReport;
 import com.nar.report.DailyPenjualanReport;
@@ -289,6 +291,58 @@ public class ReportServiceImpl implements ReportService{
                     new JRBeanCollectionDataSource(dailyPembelianReports));
         }catch(JRException ex){
             log.error("error generate DailyPembelianReports", ex);
+        }
+        return null;
+    }
+
+    @Override
+    public JasperPrint getArusKas(Date tgl) {
+        try{
+            List<ArusKasReport> arusKasReports =
+                sessionFactory.getCurrentSession()
+                    .createQuery("select j.tanggal as tanggal, j.faktur as faktur, j.debit as debit, j.kredit as kredit, j.employee.nik as operator from JurnalUmum j where j.tanggal <= :sampai AND j.masterAkun.kodeAkun like '101'")
+                    .setParameter("sampai", tgl)
+                    .setResultTransformer(
+                        Transformers.aliasToBean(ArusKasReport.class))
+                    .list();
+
+            InputStream is = ReportServiceImpl.class
+                    .getResourceAsStream("/reports/laporanaruskas.jasper");
+
+            Map<String,Object> parameters = new HashMap<String, Object>();
+            parameters.put("date", tgl);
+
+            return JasperFillManager.fillReport(is, parameters, 
+                    new JRBeanCollectionDataSource(arusKasReports));
+        }catch(JRException ex){
+            log.error("error generate ArusKasReport", ex);
+        }
+        return null;
+    }
+
+    @Override
+    public JasperPrint getBukuBesar(Date dari, Date sampai) {
+        try{
+            List<BukuBesarReport> bukuBesarReport =
+                sessionFactory.getCurrentSession()
+                    .createQuery("select j.masterAkun.namaAkun as namaakun,j.tanggal as tanggal, j.faktur as faktur, j.debit as debit, j.kredit as kredit, j.employee.nik as operator from JurnalUmum j where j.tanggal between :dari AND :sampai order by j.masterAkun.kodeAkun")
+                    .setParameter("dari", dari)
+                    .setParameter("sampai", sampai)
+                    .setResultTransformer(
+                        Transformers.aliasToBean(BukuBesarReport.class))
+                    .list();
+
+            InputStream is = ReportServiceImpl.class
+                    .getResourceAsStream("/reports/laporanbukubesar.jasper");
+
+            Map<String,Object> parameters = new HashMap<String, Object>();
+            parameters.put("dari", dari);
+            parameters.put("sampai", sampai);
+
+            return JasperFillManager.fillReport(is, parameters, 
+                    new JRBeanCollectionDataSource(bukuBesarReport));
+        }catch(JRException ex){
+            log.error("error generate ArusKasReport", ex);
         }
         return null;
     }
