@@ -508,6 +508,19 @@ public class FormPenjualan extends javax.swing.JInternalFrame {
 
     private void btnMasukanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasukanActionPerformed
         // TODO add your handling code here:
+        
+        if(Integer.parseInt(txtJumlahBarang.getText()) < 0)
+        {
+            JOptionPane.showMessageDialog(null, "jumlah barang tidak boleh mines");
+            return;
+        }
+        
+        if(Main.getBarangService().getBarang(txtKodeBarang.getText()).getStock() < Integer.parseInt(txtJumlahBarang.getText()))
+        {
+            JOptionPane.showMessageDialog(null, "stock tidak cukup");
+            return;
+        }
+        
         if(listDetailPenjualan == null)
             listDetailPenjualan = new ArrayList<DetailPenjualan>();
         detailPenjualan = new DetailPenjualan();

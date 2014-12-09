@@ -4,33 +4,45 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT SUM( dp.jumlah_barang * ( dp.harga_satuan - b.HARGA_BELI ) ) as pendapatan
-FROM t_detail_penjualan dp
-INNER JOIN t_barang b ON dp.BARANG_ID = b.KODE_BARANG]]>
+		<![CDATA[]]>
 	</queryString>
-	<field name="pendapatan" class="java.math.BigDecimal"/>
-	<variable name="pendapatan_sum" class="java.lang.Long" calculation="Sum">
-		<variableExpression><![CDATA[$F{pendapatan}]]></variableExpression>
-	</variable>
-	<variable name="pendapatan_1" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$F{pendapatan}]]></variableExpression>
-	</variable>
-	<group name="pendapatan">
-		<groupExpression><![CDATA[$F{pendapatan}]]></groupExpression>
-	</group>
+	<field name="penjualan" class="java.math.BigDecimal"/>
+	<field name="pembelian" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="21" splitType="Stretch">
+		<band height="62" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="100" height="20" uuid="1ef4837a-e7b0-4c08-971e-dce6356105b6"/>
+				<text><![CDATA[Penjualan]]></text>
+			</staticText>
+			<textField pattern="#,##0;(#,##0)">
+				<reportElement x="288" y="0" width="100" height="20" uuid="8cb8c0cb-c692-4a9a-8ac9-a14d45f23512"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{penjualan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;(#,##0)">
+				<reportElement x="288" y="20" width="100" height="20" uuid="baf719ae-878e-4623-a60d-edc078812245"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{pembelian}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20" uuid="04298796-2ae9-4540-a087-70dace6baf08"/>
+				<text><![CDATA[Pembelian]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20" uuid="b2526a09-4ae4-4052-9e6f-89319c442d03"/>
 				<text><![CDATA[Laba Kotor]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="288" y="0" width="100" height="20" uuid="8cb8c0cb-c692-4a9a-8ac9-a14d45f23512"/>
-				<textFieldExpression><![CDATA[$F{pendapatan}]]></textFieldExpression>
+			<textField pattern="#,##0;(#,##0)">
+				<reportElement x="288" y="40" width="100" height="20" uuid="a2ad0d20-e670-4eee-b01b-b06220830caf"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{penjualan} - $F{pembelian}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="288" y="40" width="100" height="1" uuid="9f30e1f6-74f2-471b-9088-c63cb6858efe"/>
+			</line>
 		</band>
 	</title>
 	<pageHeader>

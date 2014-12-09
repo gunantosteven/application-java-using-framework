@@ -467,6 +467,12 @@ public class FormPembelian extends javax.swing.JInternalFrame {
 
     private void btnMasukanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasukanActionPerformed
         // TODO add your handling code here:
+        if(Integer.parseInt(txtJumlahBarang.getText()) < 0)
+        {
+            JOptionPane.showMessageDialog(null, "jumlah barang tidak boleh mines");
+            return;
+        }
+        
         if(listDetailPembelian == null)
             listDetailPembelian = new ArrayList<DetailPembelian>();
         detailPembelian = new DetailPembelian();

@@ -23,3 +23,8 @@ Update 05/12/2014
 update 08/12/2014
 
 -Tambah Laporan Arus Kas Dan Buku Besar
+
+update 09/12/2014
+
+-Optimasi validasi form pembelian dan penjualan
+-Pembenaran laporan laba rugi

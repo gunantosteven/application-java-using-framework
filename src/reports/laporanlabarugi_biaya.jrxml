@@ -29,8 +29,9 @@
 				<reportElement x="0" y="1" width="100" height="20" uuid="042e5556-caf6-4371-9598-0e84b4801bfc"/>
 				<textFieldExpression><![CDATA[$F{namaAkun}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0;(#,##0)">
 				<reportElement x="144" y="1" width="100" height="20" uuid="0032794a-26a5-47c7-a55d-0d4003f71f7b"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
 			</textField>
 		</band>

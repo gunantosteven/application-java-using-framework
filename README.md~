@@ -19,3 +19,7 @@ Update 05/12/2014
 
 -Optimasi Validasi bagian Master
 -Pembenaran Report laporan neraca dan laba rugi
+
+update 08/12/2014
+
+-Tambah Laporan Arus Kas Dan Buku Besar
