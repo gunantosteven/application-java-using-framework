@@ -1,4 +1,4 @@
-http://stevengunanto.blogspot.com/2014/07/application-example-using-framework.html#more
+http://ungapps.com/2014/07/application-example-using-framework.html#more
 
 Application using Netbeans 8.0.1 and database MySQL
 
